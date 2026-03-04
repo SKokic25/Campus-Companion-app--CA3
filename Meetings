@@ -1,9 +1,9 @@
 Meeting 04-03-2026 19:50-20:30
 Goal of todays meeting: 
 Yesterday 03-03-26 Lab233 our CA3 was handed to us, we created a shared word document in class and started writing about our ideas, such as user interface
-target audience, app design etc. We agreed that we would do a meeting today 04-03-2026 to talk about the ideas and  " accept", "decline"
-or " review"(to be reviwed in the future)  the ideas.
-Of course this can always be modified.
+target audience, app design etc. We agreed that we would do a meeting today 04-03-2026 to discuss  the ideas in the words document and  " accept", "decline"
+or " review"(to be reviwed in the future) the ideas. "Blank" means that I forgot to write what was decided 
+Of course this can always be modified, this gives us a baseline.
 
 Meeting Attendace: (whereas 0 means no present, 1 means present)
 - Mercy 1
@@ -14,53 +14,57 @@ Meeting Attendace: (whereas 0 means no present, 1 means present)
 
 Attendance Total: 3/5
 
-Summary of todays meeting: 
+Summary of todays meeting:
 
 Shaun suggested:
 The app should let students access their own course information in a personalized way. Meeting Notes: Change name, add picture 
 It should include accessibility features like shortcuts. Accept Meetig Notes: Links, taking inspiration from the assignment we did in Nature of
 Enterprise called: Usability-Accessibility-Fixes in that assignemnt there was a link section that when click it will direct us to the page.
-A clear colour scheme to separate different sections. Accept (Meeting Notes: Go hand to hand with mercys color design) 
-A search feature to make information easy to find. Accept 
+A clear colour scheme to separate different sections. Accepted
+(Meeting Notes: Go hand to hand with mercys color design) 
+A search feature to make information easy to find. Accepted 
  
  
 Mercy suggested:
-Students should be able to check their timetable and see where classes are located. Accept
-Lecturer contact details should be included. Accept
-Information about campus offices (for example, Student Hub). Accept
-A section for future events (inspired by Brightspace layout). Accept
-Using a green colour palette: Accept
+Students should be able to check their timetable and see where classes are located. Accepted
+Lecturer contact details should be included. Accepted
+Information about campus offices (for example, Student Hub). Accepted
+A section for future events (inspired by Brightspace layout). Accepted
+Using a green colour palette: Accepted
 #2f6f4e, #9fe0b5, #eef6f0, #1f2a24
 (Green was chosen because it feels calm, clean, and professional, and works for different age groups.)
 Using Miro to design our mockups before building the app, since we are familiar with it and it helps visualize ideas clearly + 
-Save time when we are making the app because we know the way it will look. Accept 
+Save time when we are making the app because we know the way it will look. Accepted
  
 Stefan suggested:
 An option to switch between student view and staff view. To be reviewed ( Meeting Notes: We have to decide if the target audience of our app 
 will only be for students or also teachers. If we had teachers that could mean a more complex app)
-Exam timetables filtered by course code, so students only see their own exams. Accept 
+Exam timetables filtered by course code, so students only see their own exams. Accepted
 Meeting Notes:
 Students can find their example time table by searching their code ( we can do that through supbase using a table and link it) 
  
 Daniel suggested:
-A grades portal where students can see grades, feedback, and academic progress. Accept
+A grades portal where students can see grades, feedback, and academic progress. Accepted
 Library features like checking book availability, renewing loans, and reserving study rooms.
  
 Meetings Notes:
-Study rooms accept
-Renewing loans decline
-Library features like checking book availability accept 
-Grades, Feedback Accept 
-Academic Progress Decline
+Study rooms Accepted
+Renewing loans Declined
+Library features like checking book availability accepted
+Grades, Feedback Accepted
+Academic Progress Declined
  
  
 Josh suggested:
-A news section for campus updates. 
-A feature to join societies through the app. Accept 
-Showing the canteen menu and student deals.
+A news section for campus updates. * Accepted
+A feature to join societies through the app. Accepted 
+Showing the canteen menu and student deals. Blank
  
-Meetings: 
+* Meetings Notes: 
 Testimonials example: We write news and there are arrows where people can scroll and they are like 6 news. Can be do through HTML & CSS
 
 
+Ended of Meeting/Next Steps:
+"Next week we will talk in class on what we will do next. Please, if by next week Wednesday (11-03-26) nobody brings
+out the topic (CA) please take the initiative and talk about it. Thank you " - mercy 
 
