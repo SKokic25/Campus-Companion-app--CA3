@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Companion App Mockup</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Student Companion App</h1>
+    <nav>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#timetable">Timetable</a>
+      <a href="#grades">Grades</a>
+      <a href="#events">Events</a>
+    </nav>
+  </header>
+
+
+  <main>
+
+
+    <section class="login-container" id="login">
+      <h2>Login / Register</h2>
+      <input type="text" placeholder="Username" id="username">
+      <input type="password" placeholder="Password" id="password">
+      <button onclick="login()">Login</button>
+    </section>
+
+  
+    <section class="dashboard" id="dashboard">
+      <div class="card">
+        <h3>Personal Info</h3>
+        <p>Name: <span id="user-name">Guest</span></p>
+        <p>Course: Computer Science</p>
+        <button class="btn" onclick="changeName()">Change Name</button>
+      </div>
+
+      <div class="card" id="timetable">
+        <h3>Timetable</h3>
+        <p>View your weekly classes</p>
+        <button class="btn"><a href="timetable.html">View Timetable</a></button>
+      </div>
+
+      <div class="card" id="grades">
+        <h3>Grades</h3>
+        <p>Check your progress and feedback</p>
+        <button class="btn"><a href="grades.html">View Grades</a></button>
+      </div>
+
+      <div class="card" id="events">
+        <h3>Events</h3>
+        <p>Upcoming campus events and news</p>
+        <button class="btn"><a href="events.html">View Grades</a></button>
+      </div>
+
+      <div class="card" id="library">
+        <h3>Library Services</h3>
+        <p>Check books, reserve study rooms</p>
+          <button class="btn"><a href="library_services.html">View Grades</a></button>
+      </div>
+
+      <div class="card" id="canteen">
+        <h3>Canteen Menu</h3>
+        <p>View today’s deals</p>
+          <button class="btn"><a href="lunch_menu.html">View Lunch menu</a></button>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+    &copy; 2026 Student Companion App
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+:root {
+  --green-dark: #1f2a24;
+  --green-main: #2f6f4e;
+  --green-light: #9fe0b5;
+  --green-extra-light: #eef6f0;
+  --white: #ffffff;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: var(--green-extra-light);
+  color: var(--green-dark);
+}
+
+header {
+  background-color: var(--green-main);
+  color: var(--white);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+nav a {
+  color: var(--white);
+  text-decoration: none;
+  margin-left: 1rem;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+main {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.login-container {
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: var(--white);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: var(--green-dark);
+}
+
+.login-container input {
+  width: 100%;
+  padding: 0.8rem;
+  margin: 0.5rem 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.login-container button {
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 1rem;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--green-main);
+  color: var(--white);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.login-container button:hover {
+  background-color: var(--green-dark);
+}
+
+
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background-color: var(--white);
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+  margin-top: 0;
+  color: var(--green-main);
+}
+
+
+.btn {
+  background-color: var(--green-light);
+  color: var(--green-dark);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.btn:hover {
+  background-color: var(--green-main);
+  color: var(--white);
+}
+
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+  background-color: var(--green-main);
+  color: var(--white);
+}
