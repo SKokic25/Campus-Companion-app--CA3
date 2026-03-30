@@ -1,0 +1,73 @@
+Meeting 20-03-2026 14:00-14:40
+Goal of the meetig:
+Discuss the next steps 
+Meeting Attendace: (whereas 0 means no present, 1 means present)
+- Mercy 1
+- Shaun 1
+- Josh 1
+- Daniel 1
+- Stefan 1
+
+Attendance Total: 5/5
+
+Summary of the Meeting:
+Everyone liked the initial mokeup login structure created by mercy, Stefan suggested changing the font of the "Companion App" to make it easy
+to read (change viewable in miro), everyone agreed on the change.
+
+Question asked " what did everyone did the week prior regarding the app" , 
+Stefan & Shaun shared that they disscussed about the coding to implement based on the ideas shared in the previous meeting. Next
+week coming to start with the website ( the first draft of the website) where he will push GitHub for us to have a look.
+Shaun:
+Said he wants to do further reserach ex sarting by doing a "skeleton" of the website (html)  before doing the design aspect (css), he also 
+spoke about implementing the teacher/students view.
+Stefan:
+Added to shaun idea by Suggesting to do a button from a drop down menu lebeled as "switch to staff view" & link it as a hyperlink so once clicked
+it automatically brings user to the other website.
+In VS code have 2 index.html code one for students & another one for staff, copy the index.html code for students and change it to staff 
+(so to copy the code of the students and modify any "students" line to "staff")
+Shaun :
+(shaun added) It could be on the main page where it shows as " Are you student or staff" and depending on what user clicks it sends them 
+to the student or staff sign in that why is already set up from the get go.
+Mercy:
+We could take inspiration from the code from the assignment Semester 2 Week 5 "Usability & Accessibility fixes" in Nature of enterprise to implement 
+the hyperlinks (students/staff view)
+(Josh texted "yes we should do that" )
+
+How do we move forward from here?
+Stefan : Needs someone to make the database & SQL(for examns, staff, studets etc) = when stefan creates the tables he can link the database to the website.
+Shaun:
+Offered to do it (the database & SQL)
+
+Daniel, Josh, Shaun, Mercy: Agreed on the database & SQL idea.
+
+Shaun:
+Shaun asked how we are going to test the user friendliness to people such as older generation. How are we going to test that
+people that dont really know texhnology are still able to  understand how to naviagte the app.
+
+Stefan:
+Suggested we use clean font, bigger letters, buttons that redirects where users needs to go ex "click here" for maps when click it redirects them to maps.
+Stefan said he could do that
+Mercy:
+Added that to test the app functions to people of different ages, we can test it by asking our family memebers such as brothers, sis, mothers, fathers etc..
+from different age range to try it and give us tehir opinion of what they think about it (how easy it was to navigate and use the app). 
+To make a simple word document and print it out "was it simple to navigate" yes, no, other (write) and talk to them to know what they thought about it.
+Shaun:
+Said: That is a great idea, we could have like a feedback word docuent and link to that by saying we go this feedback and we change  X to "that" 
+based on the feedack to improve the app.
+(Daniel texted: "Sounds good")
+(Josh texted: "I was thinking about that, take notes while someone is using the app. I'll do that as well ")
+Stefan:
+Agreed on the idea & added that he could aked his cousin to check up the website since he his a developer, which would be great feedback
+to put in the word document.
+Mercy:
+Said that once we reach that stage we all decide when we will start asking them question(feedback) we should do it at the same time to make 
+sure we are all in the same page.
+Shaun:
+Suggested we should also have the same questions this way it is easier to analyse the data. Or do a simple quiz like we did in semester 1
+in the module communications.
+
+
+Final thoughts:
+The database & SQL is asisgned to Shaun BUT we will all help and contribute to the database.
+Website structure will be started by Stefan & he will push it in GitHub.
+There is no next meeting assigned.
