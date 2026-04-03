@@ -259,7 +259,7 @@ footer {
   display: block;
 }
 
-/* --- LUNCH MENU STYLING --- */
+/* ===== LUNCH MENU STYLING ===== */
 
 .menu {
   max-width: 800px;
@@ -305,4 +305,126 @@ footer {
 
 .menu-item li {
   margin: 4px 0;
+}
+
+/* ===== EVENTS PAGE STYLING ===== */
+
+.events-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.event-card {
+  background-color: var(--white);
+  padding: 1.2rem;
+  border-radius: 12px;
+  box-shadow: 0px 3px 10px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-left: 6px solid var(--green-main);
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 6px 14px rgba(0,0,0,0.15);
+}
+
+.event-card h3 {
+  margin-top: 0;
+  color: var(--green-main);
+}
+
+.event-date {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--green-dark);
+  margin-bottom: 0.5rem;
+}
+
+/* ===== ADD EVENT BOX IMPROVED ===== */
+
+.add-event {
+  background-color: var(--white);
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0px 3px 10px rgba(0,0,0,0.1);
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.add-event input {
+  flex: 1;
+  min-width: 150px;
+  padding: 0.7rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.add-event input:focus {
+  border-color: var(--green-main);
+  box-shadow: 0 0 5px rgba(47, 111, 78, 0.3);
+  outline: none;
+}
+
+.add-event button {
+  background-color: var(--green-main);
+  color: var(--white);
+  border: none;
+  padding:
+ 0.7rem 1.2rem;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.add-event button:hover {
+  background-color: var(--green-dark);
+  transform: translateY(-1px);
+}
+
+.add-event button:active {
+  transform: scale(0.97);
+}
+
+
+.delete-btn {
+  margin-top: 0.5rem;
+  background-color: #e74c3c;
+  color: var(--white);
+  border: none;
+  padding: 0.45rem 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+  transform: translateY(-1px);
+  box-shadow: 0px 3px 8px rgba(0,0,0,0.15);
+}
+
+.delete-btn:active {
+  transform: scale(0.95);
+}
+
+.event-card .delete-btn {
+  display: inline-block;
+}
+
+.events-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px; 
+  margin-top: 20px;
+}
+
+.event-card {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
