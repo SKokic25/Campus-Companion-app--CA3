@@ -1,85 +1,128 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lunch Menu</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lunch Menu</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <header>
 
-  <h1>Student Companion App</h1>
+<header>
+  <h1>Daily Canteen Menu</h1>
   <nav>
     <div class="dropdown">
-      <button class="dropbtn">Menu ▾</button>
-      <div class="dropdown-content">
-        <a href="index.html">Home</a>
-        <a href="timetable.html">Timetable</a>
-        <a href="grades.html">Grades</a>
-        <a href="events.html">Events</a>
+      <button class="dropbtn" aria-expanded="false">Menu ▾</button>
+      <div class="dropdown-content" role="menu">
+        <a href="index.html" role="menuitem">Home</a>
+        <a href="timetable.html" role="menuitem">Timetable</a>
+        <a href="grades.html" role="menuitem">Grades</a>
+        <a href="events.html" role="menuitem">Events</a>
+        <a href="#" class="logout" onclick="logout()" style="position:absolute; right:10px; top:10px;">Logout</a>
       </div>
     </div>
   </nav>
 </header>
 
-<div class="menu-item">
-  <h3>Main Course</h3>
-  <ul>
-    <li id="main"></li>
-  </ul>
-</div>
+<main>
+  <h2>Lunch Menu</h2>
 
-<div class="menu-item">
-  <h3>Vegetarian Option</h3>
-  <ul>
-    <li id="veg"></li>
-  </ul>
+  <section class="menu-item">
+    <h3>Main Course</h3>
+    <ul><li id="main">Loading…</li></ul>
+  </section>
 
-</div>
+  <section class="menu-item">
+    <h3>Vegetarian Option</h3>
+    <ul><li id="veg">Loading…</li></ul>
+  </section>
 
-<div class="menu-item">
-  <h3>Dessert</h3>
-  <ul>
-  <li id="dessert"></li>
-  </ul>
-</div>
+  <section class="menu-item">
+    <h3>Dessert</h3>
+    <ul><li id="dessert">Loading…</li></ul>
+  </section>
 
-<div class="menu-item">
-  <h3>Sides</h3>
-  <ul id="sides"></ul>
-</div>
+  <section class="menu-item">
+    <h3>Sides</h3>
+    <ul id="sides"><li>Loading…</li></ul>
+  </section>
 
-<div class="menu-item">
-  <h3>Drinks</h3>
-  <ul id="drinks"></ul>
-</div>
+  <section class="menu-item">
+    <h3>Drinks</h3>
+    <ul id="drinks"><li>Loading…</li></ul>
+  </section>
+
+  <section id="menu-error" style="color:#b00; margin-top:12px; display:none;"></section>
+</main>
 
 <footer>
-  <p>&copy; 2026 Student Companion App</p>
+  <p>© 2026 Student Companion App</p>
 </footer>
 
-</body>
-</html>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/umd/supabase.min.js"></script>
+<script src="script.js"></script>
+
 <script>
-fetch("menu.json")
-  .then(res => res.json())
-  .then(data => {
-    const today = new Date().toLocaleDateString('en-US', { weekday: 'long' });
-    const menu = data[today];
+document.addEventListener('DOMContentLoaded', () => {
+  const mainEl = document.getElementById('main');
+  const vegEl = document.getElementById('veg');
+  const dessertEl = document.getElementById('dessert');
+  const sidesEl = document.getElementById('sides');
+  const drinksEl = document.getElementById('drinks');
+  const errorEl = document.getElementById('menu-error');
 
-    if (menu) {
-      document.getElementById("main").textContent = menu.main;
-      document.getElementById("veg").textContent = menu.veg;
-      document.getElementById("dessert").textContent = menu.dessert;
+  function escapeHtml(str) {
+    return String(str || '')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
 
-      document.getElementById("sides").innerHTML =
-        menu.sides.map(item => `<li>${item}</li>`).join("");
+  const weekday = new Date().toLocaleDateString('en-US', { weekday: 'long' });
 
-      document.getElementById("drinks").innerHTML =
-        menu.drinks.map(item => `<li>${item}</li>`).join("");
-    }
-  });
+  fetch('menu.json')
+    .then(res => {
+      if (!res.ok) throw new Error('menu.json not found (check path or server)');
+      return res.json();
+    })
+    .then(data => {
+
+      const menu = data[weekday] || data['default'] || null;
+      if (!menu) {
+        errorEl.style.display = 'block';
+        errorEl.textContent = 'No menu available for ' + weekday + '.';
+        mainEl.textContent = '-';
+        vegEl.textContent = '-';
+        dessertEl.textContent = '-';
+        sidesEl.innerHTML = '';
+        drinksEl.innerHTML = '';
+        return;
+      }
+
+      mainEl.textContent = escapeHtml(menu.main || '-');
+      vegEl.textContent = escapeHtml(menu.veg || '-');
+      dessertEl.textContent = escapeHtml(menu.dessert || '-');
+
+      sidesEl.innerHTML = Array.isArray(menu.sides) && menu.sides.length
+        ? menu.sides.map(s => `<li>${escapeHtml(s)}</li>`).join('')
+        : '<li>-</li>';
+
+      drinksEl.innerHTML = Array.isArray(menu.drinks) && menu.drinks.length
+        ? menu.drinks.map(d => `<li>${escapeHtml(d)}</li>`).join('')
+        : '<li>-</li>';
+    })
+    .catch(err => {
+      console.error('Failed to load menu.json', err);
+      errorEl.style.display = 'block';
+      errorEl.textContent = 'Could not load menu. Check menu.json and run a local server.';
+      mainEl.textContent = '-';
+      vegEl.textContent = '-';
+      dessertEl.textContent = '-';
+      sidesEl.innerHTML = '';
+      drinksEl.innerHTML = '';
+    });
+});
 </script>
 </body>
 </html>
