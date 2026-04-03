@@ -38,7 +38,7 @@ if (window.__APP_SCRIPT_LOADED__) {
 
   if (loggedIn === "true") {
     if (loginSection) loginSection.style.display = "none";
-    if (dashboardSection) dashboardSection.style.display = "flex";
+    if (dashboardSection) dashboardSection.style.display = "grid";
   } else {
     if (loginSection) loginSection.style.display = "block";
     if (dashboardSection) dashboardSection.style.display = "none";
@@ -73,7 +73,7 @@ function login() {
 
   loadUserInfo();
   const dashboard = document.getElementById("dashboard");
-  if (dashboard) dashboard.scrollIntoView({ behavior: "smooth" });
+  if (dashboard) dashboard.scrollIntoView({ behavior: "smooth " });
 }
 
     loadUserInfo();
