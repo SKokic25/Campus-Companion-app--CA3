@@ -1,0 +1,37 @@
+{
+  "Monday": {
+    "main": "Chicken Curry & Rice",
+    "veg": "Vegetable Stir Fry",
+    "sides": ["Salad", "Garlic Bread"],
+    "dessert": "Ice Cream",
+    "drinks": ["Water", "Apple Juice", "Monster Enegy"]
+  },
+  "Tuesday": { 
+    "main": "Beef Burger & Fries",
+    "veg": "Veggie Burger",
+    "sides": ["Fries", "Coleslaw"],
+    "dessert": "Brownie",
+    "drinks": ["Water", " Orange Juice", "BPM"]
+  },
+  "Wednesday": {
+    "main": "Spaghetti Bolognese",
+    "veg": "Pasta Primavera",
+    "sides": ["Garlic Bread", "Salad"],
+    "dessert": "Fruit Salad",
+    "drinks": ["Water", "Apple Juice", "Monster Enegy"]
+  },
+  "Thursday": {
+    "main": "Roast Chicken & Potatoes",
+    "veg": "Veggie Lasagna",
+    "sides": ["Vegetables", "Gravy"],
+    "dessert": "Chocolate Cake",
+    "drinks": ["Water", " Orange Juice", "BPM"]
+  },
+  "Friday": {
+    "main": "Fish & Chips",
+    "veg": "Margherita Pizza",
+    "sides": ["Peas", "Fries"],
+    "dessert": "Donuts",
+    "drinks": ["Water", "Apple Juice", "Monster Enegy"]
+  }
+}
