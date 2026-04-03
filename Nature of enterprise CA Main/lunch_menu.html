@@ -7,6 +7,79 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <header>
+
+  <h1>Student Companion App</h1>
+  <nav>
+    <div class="dropdown">
+      <button class="dropbtn">Menu ▾</button>
+      <div class="dropdown-content">
+        <a href="index.html">Home</a>
+        <a href="timetable.html">Timetable</a>
+        <a href="grades.html">Grades</a>
+        <a href="events.html">Events</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="menu-item">
+  <h3>Main Course</h3>
+  <ul>
+    <li id="main"></li>
+  </ul>
+</div>
+
+<div class="menu-item">
+  <h3>Vegetarian Option</h3>
+  <ul>
+    <li id="veg"></li>
+  </ul>
+
+</div>
+
+<div class="menu-item">
+  <h3>Dessert</h3>
+  <ul>
+  <li id="dessert"></li>
+  </ul>
+</div>
+
+<div class="menu-item">
+  <h3>Sides</h3>
+  <ul id="sides"></ul>
+</div>
+
+<div class="menu-item">
+  <h3>Drinks</h3>
+  <ul id="drinks"></ul>
+</div>
+
+<footer>
+  <p>&copy; 2026 Student Companion App</p>
+</footer>
+
+</body>
+</html>
+<script>
+fetch("menu.json")
+  .then(res => res.json())
+  .then(data => {
+    const today = new Date().toLocaleDateString('en-US', { weekday: 'long' });
+    const menu = data[today];
+
+    if (menu) {
+      document.getElementById("main").textContent = menu.main;
+      document.getElementById("veg").textContent = menu.veg;
+      document.getElementById("dessert").textContent = menu.dessert;
+
+      document.getElementById("sides").innerHTML =
+        menu.sides.map(item => `<li>${item}</li>`).join("");
+
+      document.getElementById("drinks").innerHTML =
+        menu.drinks.map(item => `<li>${item}</li>`).join("");
+    }
+  });
+</script>
 </body>
 </html>
