@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Companion App</title>
+  <link rel="stylesheet" href="style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+<body>
+
+<header>
+  <h1>Student Timetable</h1>
+  <nav>
+    <div class="dropdown">
+      <button class="dropbtn" aria-expanded="false">Menu ▾</button>
+      <div class="dropdown-content" role="menu">
+        <a href="index.html" role="menuitem">Home</a>
+        <a href="timetable.html" role="menuitem">Timetable</a>
+        <a href="grades.html" role="menuitem">Grades</a>
+        <a href="events.html" role="menuitem">Events</a>
+        <a href="#" class="logout" onclick="logout()" style="position:absolute; right:10px; top:10px;">Logout</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section class="card">
+    <h2>Database Table</h2>
+    <div id="table-container">Loading...</div>
+  </section>
+</main>
+
+<footer>
+  <p>© 2026 Student Companion</p>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/umd/supabase.min.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html> 

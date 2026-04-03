@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Companion App</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+  <h1>Student Companion App</h1>
+  <nav>
+    <div class="dropdown">
+      <button class="dropbtn" aria-expanded="false">Menu ▾</button>
+      <div class="dropdown-content" role="menu">
+        <a href="index.html" role="menuitem">Home</a>
+        <a href="timetable.html" role="menuitem">Timetable</a>
+        <a href="grades.html" role="menuitem">Grades</a>
+        <a href="events.html" role="menuitem">Events</a>
+        <a href="#" class="logout" onclick="logout()" style="position:absolute; right:10px; top:10px;">Logout</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main>
+ <section class="login-container" id="login">
+  <h2>Login / Register</h2>
+  <input type="text" placeholder="Username" id="username" />
+  <input type="password" placeholder="Password" id="password" />
+
+  <label for="courseSelect" class="sr-only"></label>
+  <select id="courseSelect">
+    <option value="" disabled selected>Select course</option>
+    <option value="Computer Science">Computer Science</option>
+    <option value="Mechanical Engineering">Mechanical Engineering</option>
+  </select>
+
+  <select id="role">
+    <option value="student">Student</option>
+    <option value="staff">Staff</option>
+  </select>
+
+  <button type="button" onclick="login()">Login</button>
+</section>
+
+  <section class="dashboard" id="dashboard" style="display:none;">
+   <div class="card">
+  <h3>Personal Info</h3>
+  <p>Name: <span id="user-name">Guest</span></p>
+  <p>Course: <span id="user-course">Computer Science</span></p>
+  <p>User Type: <span id="user-role">Student</span></p>
+  <button class="btn" onclick="changeName()">Change Name</button>
+</div>
+
+    <div class="card" id="timetable">
+      <h3>Timetable</h3>
+      <p>View your weekly classes</p>
+      <a class="btn" href="timetable.html">View Timetable</a>
+    </div>
+
+    <div class="card" id="grades">
+      <h3>Grades</h3>
+      <p>Check your progress and feedback</p>
+      <a class="btn" href="grades.html">View Grades</a>
+    </div>
+
+    <div class="card" id="events">
+      <h3>Events</h3>
+      <p>Upcoming campus events and news</p>
+      <a class="btn" href="events.html">View Events</a>
+    </div>
+
+    <div class="card" id="library">
+      <h3>Library Services</h3>
+      <p>Check library Services</p>
+      <a class="btn" href="library_services.html">Library Services</a>
+    </div>
+
+    <div class="card" id="canteen">
+      <h3>Canteen Menu</h3>
+      <p>View today’s deals</p>
+      <a class="btn" href="lunch_menu.html">Lunch Menu</a>
+    </div>
+  </section>
+
+  <section id="table-section" style="margin-top:20px;">
+    <div id="table-container"></div>
+  </section>
+</main>
+
+<footer>
+  © 2026 Student Companion App
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/umd/supabase.min.js"></script>
+
+<script src="script.js"></script>
+</body>
+</html>

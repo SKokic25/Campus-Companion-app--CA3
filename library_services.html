@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Services</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ <header>
+  <h1>Library Services</h1>
+  <nav>
+    <div class="dropdown">
+      <button class="dropbtn" aria-expanded="false">Menu ▾</button>
+      <div class="dropdown-content" role="menu">
+        <a href="index.html" role="menuitem">Home</a>
+        <a href="timetable.html" role="menuitem">Timetable</a>
+        <a href="grades.html" role="menuitem">Grades</a>
+        <a href="events.html" role="menuitem">Events</a>
+        <a href="#" class="logout" onclick="logout()" style="position:absolute; right:10px; top:10px;">Logout</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/umd/supabase.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

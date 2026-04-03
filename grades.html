@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grades</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Grades</h1>
+  <nav>
+    <div class="dropdown">
+      <button class="dropbtn" aria-expanded="false">Menu ▾</button>
+      <div class="dropdown-content" role="menu">
+        <a href="index.html" role="menuitem">Home</a>
+        <a href="timetable.html" role="menuitem">Timetable</a>
+        <a href="grades.html" role="menuitem">Grades</a>
+        <a href="events.html" role="menuitem">Events</a>
+        <a href="#" class="logout" onclick="logout()" style="position:absolute; right:10px; top:10px;">Logout</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+
+  <main>
+
+    <section>
+    <div class="gpa-card">
+  <h3>Overall GPA</h3>
+  <p class="gpa" id="gpa-value">0.0</p>
+</div>
+
+<div class="grades-container">
+
+  <div class="grade-card" data-grade="4.0">
+    <h3>Mathematics</h3>
+    <p><strong>Grade:</strong> A</p>
+    <p><strong>Feedback:</strong> Excellent performance</p>
+  </div>
+
+  <div class="grade-card" data-grade="3.3">
+    <h3>Programming</h3>
+    <p><strong>Grade:</strong> B+</p>
+    <p><strong>Feedback:</strong> Good, improve efficiency</p>
+  </div>
+
+  <div class="grade-card" data-grade="3.7">
+    <h3>Algorithms</h3>
+    <p><strong>Grade:</strong> A-</p>
+    <p><strong>Feedback:</strong> Strong understanding</p>
+  </div>
+
+  <div class="grade-card" data-grade="3.0">
+    <h3>Web Development</h3>
+    <p><strong>Grade:</strong> B</p>
+    <p><strong>Feedback:</strong> Improve styling consistency</p>
+  </div>
+
+  <div class="grade-card" data-grade="4.0">
+    <h3>Databases</h3>
+    <p><strong>Grade:</strong> A</p>
+    <p><strong>Feedback:</strong> Great queries and structure</p>
+  </div>
+
+</div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    &copy; 2026 Student Companion App
+  </footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/umd/supabase.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
