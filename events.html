@@ -69,6 +69,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("eventsContainer");
   const addBtn = document.getElementById("addEventBtn");
 
+  const savedEvents = JSON.parse(localStorage.getItem("events")) || [];
+  savedEvents.forEach(event => renderEvent(event));
+
   addBtn.addEventListener("click", () => {
     const name = document.getElementById("eventName").value;
     const date = document.getElementById("eventDate").value;
@@ -78,22 +81,32 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    const event = { name, date };
+
+    const events = JSON.parse(localStorage.getItem("events")) || [];
+    events.push(event);
+    localStorage.setItem("events", JSON.stringify(events));
+
+    renderEvent(event);
+
+    document.getElementById("eventName").value = "";
+    document.getElementById("eventDate").value = "";
+  });
+
+  function renderEvent(event) {
     const card = document.createElement("div");
     card.classList.add("event-card");
 
     card.innerHTML = `
-      <h3>${name}</h3>
-      <p class="event-date">${date}</p>
+      <h3>${event.name}</h3>
+      <p class="event-date">${event.date}</p>
       <button class="btn">Add Reminder</button>
       <button class="delete-btn">Remove</button>
     `;
 
     container.appendChild(card);
     attachEvents(card);
-
-    document.getElementById("eventName").value = "";
-    document.getElementById("eventDate").value = "";
-  });
+  }
 
   function attachEvents(card) {
     const reminderBtn = card.querySelector(".btn");
@@ -114,10 +127,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     deleteBtn.addEventListener("click", () => {
-      card.remove();
-    })
-  }
+      const title = card.querySelector("h3").textContent;
 
+      let events = JSON.parse(localStorage.getItem("events")) || [];
+
+      events = events.filter(e => e.name !== title);
+
+      localStorage.setItem("events", JSON.stringify(events));
+
+      card.remove();
+    });
+  }
 
   document.querySelectorAll(".event-card").forEach(card => {
     attachEvents(card);
