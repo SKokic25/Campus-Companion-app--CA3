@@ -1,12 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Events</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    
+
+<header>
+  <h1>Student Companion App</h1>
+  <nav>
+    <div class="dropdown">
+      <button class="dropbtn">Menu ▾</button>
+      <div class="dropdown-content">
+        <a href="index.html">Home</a>
+        <a href="timetable.html">Timetable</a>
+        <a href="grades.html">Grades</a>
+        <a href="events.html">Events</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <h2>Upcoming Events</h2>
+
+  <div class="add-event">
+    <input type="text" id="eventName" placeholder="Event name">
+    <input type="date" id="eventDate">
+    <button id="addEventBtn">Add Event</button>
+  </div>
+
+  <div class="events-container" id="eventsContainer">
+
+    <div class="event-card">
+      <h3>Math Exam</h3>
+      <p class="event-date">April 10, 2026</p>
+
+      <button class="btn">Add Reminder</button>
+      <button class="delete-btn">Remove</button>
+    </div>
+    <div class="event-card">
+      <h3>Careers Day<h3>
+      <p class="event-date">April 20, 2026</p>
+      <button class="btn">Add Reminder</button>
+      <button class="delete-btn">Remove</button>
+    </div>
+
+
+    <div class="event-card">
+      <h3>Basketball Match</h3>
+      <p class="event-date">April 15, 2026</p>
+      <button class="btn">Add Reminder</button>
+      <button class="delete-btn">Remove</button>
+    </div>
+
+  </div>
+</main>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const container = document.getElementById("eventsContainer");
+  const addBtn = document.getElementById("addEventBtn");
+
+  addBtn.addEventListener("click", () => {
+    const name = document.getElementById("eventName").value;
+    const date = document.getElementById("eventDate").value;
+
+    if (!name || !date) {
+      alert("Please fill in both fields");
+      return;
+    }
+
+    const card = document.createElement("div");
+    card.classList.add("event-card");
+
+    card.innerHTML = `
+      <h3>${name}</h3>
+      <p class="event-date">${date}</p>
+      <button class="btn">Add Reminder</button>
+      <button class="delete-btn">Remove</button>
+    `;
+
+    container.appendChild(card);
+    attachEvents(card);
+
+    document.getElementById("eventName").value = "";
+    document.getElementById("eventDate").value = "";
+  });
+
+  function attachEvents(card) {
+    const reminderBtn = card.querySelector(".btn");
+    const deleteBtn = card.querySelector(".delete-btn");
+
+    reminderBtn.addEventListener("click", () => {
+      if (reminderBtn.classList.contains("active")) {
+        reminderBtn.classList.remove("active");
+        reminderBtn.textContent = "Add Reminder";
+        reminderBtn.style.backgroundColor = "";
+        reminderBtn.style.color = "";
+      } else {
+        reminderBtn.classList.add("active");
+        reminderBtn.textContent = "Reminder Set ✅";
+        reminderBtn.style.backgroundColor = "#2f6f4e";
+        reminderBtn.style.color = "#fff";
+      }
+    });
+
+    deleteBtn.addEventListener("click", () => {
+      card.remove();
+    })
+  }
+
+
+  document.querySelectorAll(".event-card").forEach(card => {
+    attachEvents(card);
+  });
+
+});
+</script>
+
 </body>
 </html>
