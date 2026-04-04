@@ -7,22 +7,57 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
- <header>
+
+<header>
   <h1>Library Services</h1>
   <nav>
     <div class="dropdown">
       <button class="dropbtn" aria-expanded="false">Menu ▾</button>
       <div class="dropdown-content" role="menu">
-        <a href="index.html" role="menuitem">Home</a>
-        <a href="timetable.html" role="menuitem">Timetable</a>
-        <a href="grades.html" role="menuitem">Grades</a>
-        <a href="events.html" role="menuitem">Events</a>
-        <a href="#" class="logout" onclick="logout()" style="position:absolute; right:10px; top:10px;">Logout</a>
+        <a href="index.html">Home</a>
+        <a href="timetable.html">Timetable</a>
+        <a href="grades.html">Grades</a>
+        <a href="events.html">Events</a>
+        <a href="#" class="logout" onclick="logout()">Logout</a>
       </div>
     </div>
   </nav>
 </header>
+
+<main>
+
+  <!-- 📚 Book Search -->
+  <section class="card">
+    <h2>Check Book Availability</h2>
+    <input type="text" id="bookSearch" placeholder="Enter book title...">
+    <button onclick="searchBooks()">Search</button>
+    <ul id="bookResults"></ul>
+  </section>
+
+  <!-- 🔄 Renew Loans -->
+  <section class="card">
+    <h2>Your Borrowed Books</h2>
+    <button onclick="loadLoans()">Load My Loans</button>
+    <ul id="loanList"></ul>
+  </section>
+
+  <!-- 🪑 Study Room Reservation -->
+  <section class="card">
+    <h2>Reserve Study Room</h2>
+    <label>Date:</label>
+    <input type="date" id="roomDate">
+
+    <label>Time:</label>
+    <input type="time" id="roomTime">
+
+    <button onclick="reserveRoom()">Reserve</button>
+    <p id="reservationStatus"></p>
+  </section>
+
+</main>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/umd/supabase.min.js"></script>
 <script src="script.js"></script>
+
 </body>
 </html>
