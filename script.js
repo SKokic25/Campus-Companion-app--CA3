@@ -2,6 +2,12 @@
 const SUPABASE_URL = "https://dtgvwyumlcyuvdakoigp.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR0Z3Z3eXVtbGN5dXZkYWdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzNjM5MTgsImV4cCI6MjA4OTkzOTkxOH0.L84fSP7uRs-02N5xeaanpyOwFt7Ob1mLV_eJ8r75j64";
 
+
+const supabaseLibrary = window.supabase.createClient(
+  "https://xxouzugyuyojvdvxcqpm.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh4b3V6dWd5dXlvanZkdnhjcXBtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUyNDQzMTAsImV4cCI6MjA5MDgyMDMxMH0.LChhHhQC-lXG_JDJKhnXduAD3rApFrc-gRpzU8UEaEs"
+);
+
 if (window.__APP_SCRIPT_LOADED__) {
   console.warn("script.js already loaded; skipping re-initialization.");
 } else {
@@ -18,33 +24,33 @@ if (window.__APP_SCRIPT_LOADED__) {
   const supabase = window.__APP_SUPABASE__;
   const TABLE_NAME = "timetable";
 
+function loadUserInfo() {
+    const loggedIn = localStorage.getItem("loggedIn");
+    const name = localStorage.getItem("userName") || "Guest";
+    const role = localStorage.getItem("userRole") || "Student";
+    const course = localStorage.getItem("userCourse") || "Computer Science";
+
   
-  function loadUserInfo() {
-  const loggedIn = localStorage.getItem("loggedIn");
-  const name = localStorage.getItem("userName") || "Guest";
-  const role = localStorage.getItem("userRole") || "Student";
-  const course = localStorage.getItem("userCourse") || "Computer Science";
+    const userNameElem = document.getElementById("user-name");
+    const userRoleElem = document.getElementById("user-role");
+    const userCourseElem = document.getElementById("user-course");
 
-  const userNameElem = document.getElementById("user-name");
-  const userRoleElem = document.getElementById("user-role");
-  const userCourseElem = document.getElementById("user-course");
+    if (userNameElem) userNameElem.textContent = name;
+    if (userRoleElem) userRoleElem.textContent = role.charAt(0).toUpperCase() + role.slice(1);
+    if (userCourseElem) userCourseElem.textContent = course;
 
-  if (userNameElem) userNameElem.textContent = name;
-  if (userRoleElem) userRoleElem.textContent = role.charAt(0).toUpperCase() + role.slice(1);
-  if (userCourseElem) userCourseElem.textContent = course;
+    const loginSection = document.getElementById("login");
+    const dashboardSection = document.getElementById("dashboard");
 
-  const loginSection = document.getElementById("login");
-  const dashboardSection = document.getElementById("dashboard");
 
-  if (loggedIn === "true") {
-    if (loginSection) loginSection.style.display = "none";
-    if (dashboardSection) dashboardSection.style.display = "grid";
-  } else {
-    if (loginSection) loginSection.style.display = "block";
-    if (dashboardSection) dashboardSection.style.display = "none";
-  }
+    if (loggedIn === "true") {
+        if (loginSection) loginSection.style.display = "none";
+        if (dashboardSection) dashboardSection.style.display = "grid"; //
+    } else {
+        if (loginSection) loginSection.style.display = "block";
+        if (dashboardSection) dashboardSection.style.display = "none";
+    }
 }
-
 function login() {
   console.log("login() called");
   const usernameInput = document.getElementById("username");
@@ -76,10 +82,6 @@ function login() {
   if (dashboard) dashboard.scrollIntoView({ behavior: "smooth " });
 }
 
-    loadUserInfo();
-    const dashboard = document.getElementById("dashboard");
-    if (dashboard) dashboard.scrollIntoView({ behavior: "smooth" });
-  }
 
   function logout() {
     localStorage.removeItem("userName");
@@ -133,3 +135,108 @@ function login() {
   });
 
   
+async function searchBooks() {
+  const query = document.getElementById("bookSearch").value;
+
+  const { data, error } = await supabase
+    .from("books")
+    .select("*")
+    .ilike("title", `%${query}%`);
+
+  const list = document.getElementById("bookResults");
+  list.innerHTML = "";
+
+  if (data) {
+    data.forEach(book => {
+      const li = document.createElement("li");
+      li.textContent = `${book.title} - ${book.available ? "Available" : "Checked Out"}`;
+      list.appendChild(li);
+    });
+  }
+}
+async function loadLoans() {
+
+  const { data: loans, error } = await supabase
+        .from('loans')
+        .select('*');
+
+    if (error) {
+        console.error("Error fetching loans:", error);
+        return;
+    }
+
+    const loanList = document.getElementById('loanList');
+    loanList.innerHTML = '';
+
+    loans.forEach(loan => {
+        const li = document.createElement('li');
+        
+        li.textContent = `${loan.book_title} - Due: ${loan.due_date} (${loan.status}) `;
+        
+        const renewBtn = document.createElement('button');
+        renewBtn.textContent = "Renew";
+        renewBtn.onclick = () => renewLoan(loan.id); 
+        li.appendChild(renewBtn);
+
+       
+        if (loan.status === 'Overdue') {
+            li.style.color = 'red';
+        } else if (loan.status === 'Returned') {
+            li.style.color = 'gray';
+        }
+
+        loanList.appendChild(li);
+    });
+}
+    const loanList = document.getElementById('loanList');
+    loanList.innerHTML = '';
+
+    loans.forEach(loan => {
+        const li = document.createElement('li');
+        li.textContent = `${loan.book_title} - Due: ${loan.due_date} (${loan.status})`;
+        
+
+        if (loan.status === 'Overdue') {
+            li.style.color = 'red';
+            li.style.fontWeight = 'bold';
+        } else if (loan.status === 'Returned') {
+            li.style.color = 'gray';
+        } else {
+            li.style.color = 'var(--green-dark)';
+        }
+
+        loanList.appendChild(li);
+    });
+
+async function renewLoan(loanId) {
+  const newDate = new Date();
+  newDate.setDate(newDate.getDate() + 14);
+
+  await supabase
+    .from("loans")
+    .update({ due_date: newDate })
+    .eq("id", loanId);
+
+  alert("Loan renewed!");
+  loadLoans();
+}
+
+
+async function reserveRoom() {
+  const date = document.getElementById("roomDate").value;
+  const time = document.getElementById("roomTime").value;
+
+  const user = (await supabase.auth.getUser()).data.user;
+
+  const { error } = await supabase
+    .from("reservations")
+    .insert([{ user_id: user.id, date, time }]);
+
+  const status = document.getElementById("reservationStatus");
+
+  if (error) {
+    status.textContent = "Error booking room.";
+  } else {
+    status.textContent = "Room reserved successfully!";
+  }
+}}
