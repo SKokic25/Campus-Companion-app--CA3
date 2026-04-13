@@ -1,12 +1,9 @@
 
 const SUPABASE_URL = "https://dtgvwyumlcyuvdakoigp.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR0Z3Z3eXVtbGN5dXZkYWdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzNjM5MTgsImV4cCI6MjA4OTkzOTkxOH0.L84fSP7uRs-02N5xeaanpyOwFt7Ob1mLV_eJ8r75j64";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh4b3V6dWd5dXlvanZkdnhjcXBtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUyNDQzMTAsImV4cCI6MjA5MDgyMDMxMH0.LChhHhQC-lXG_JDJKhnXduAD3rApFrc-gRpzU8UEaEs";
 
 
-const supabaseLibrary = window.supabase.createClient(
-  "https://xxouzugyuyojvdvxcqpm.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh4b3V6dWd5dXlvanZkdnhjcXBtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUyNDQzMTAsImV4cCI6MjA5MDgyMDMxMH0.LChhHhQC-lXG_JDJKhnXduAD3rApFrc-gRpzU8UEaEs"
-);
+const supabaseLibrary = window.supabase.createClient
 
 if (window.__APP_SCRIPT_LOADED__) {
   console.warn("script.js already loaded; skipping re-initialization.");
@@ -83,13 +80,13 @@ function login() {
 }
 
 
-  function logout() {
-    localStorage.removeItem("userName");
-    localStorage.removeItem("userRole");
-    localStorage.removeItem("loggedIn");
-    loadUserInfo();
-  }
+function logout() {
 
+  localStorage.clear();
+  sessionStorage.clear();
+
+  window.location.href = "index.html";
+}
   function changeName() {
     const newName = prompt("Enter new name:");
     if (newName && newName.trim()) {
@@ -136,107 +133,78 @@ function login() {
 
   
 async function searchBooks() {
-  const query = document.getElementById("bookSearch").value;
+    const query = document.getElementById("bookSearch").value;
+    const resultsList = document.getElementById("bookResults");
 
-  const { data, error } = await supabase
-    .from("books")
-    .select("*")
-    .ilike("title", `%${query}%`);
+    resultsList.innerHTML = "Searching...";
 
-  const list = document.getElementById("bookResults");
-  list.innerHTML = "";
+    const { data, error } = await supabase
+        .from("books")
+        .select("*")
+        .ilike("title", `%${query}%`);
 
-  if (data) {
-    data.forEach(book => {
-      const li = document.createElement("li");
-      li.textContent = `${book.title} - ${book.available ? "Available" : "Checked Out"}`;
-      list.appendChild(li);
-    });
-  }
+    resultsList.innerHTML = "";
+
+    if (data) {
+        data.forEach(book => {
+            const li = document.createElement("li");
+            li.textContent = `${book.title} - ${book.is_available ? "✅ Available" : "❌ Out on Loan"}`;
+            resultsList.appendChild(li);
+        });
+    }
 }
+
 async function loadLoans() {
+    const loanList = document.getElementById("loanList");
 
-  const { data: loans, error } = await supabase
-        .from('loans')
-        .select('*');
+    const { data, error } = await supabase
+        .from("loans")
+        .select("id, due_date, books(title)");
 
-    if (error) {
-        console.error("Error fetching loans:", error);
+    loanList.innerHTML = "";
+
+    if (data) {
+        data.forEach(loan => {
+            const li = document.createElement("li");
+            li.textContent = `Book: ${loan.books.title} | Due: ${loan.due_date}`;
+            loanList.appendChild(li);
+        });
+    }
+}
+
+async function reserveRoom() {
+    const date = document.getElementById("roomDate").value;
+    const time = document.getElementById("roomTime").value;
+    const status = document.getElementById("reservationStatus");
+
+    if (!date || !time) {
+        status.textContent = "Please select both date and time.";
         return;
     }
 
-    const loanList = document.getElementById('loanList');
-    loanList.innerHTML = '';
+    const { error } = await supabase
+        .from("reservations")
+        .insert([{ reservation_date: date, reservation_time: time }]);
 
-    loans.forEach(loan => {
-        const li = document.createElement('li');
-        
-        li.textContent = `${loan.book_title} - Due: ${loan.due_date} (${loan.status}) `;
-        
-        const renewBtn = document.createElement('button');
-        renewBtn.textContent = "Renew";
-        renewBtn.onclick = () => renewLoan(loan.id); 
-        li.appendChild(renewBtn);
-
-       
-        if (loan.status === 'Overdue') {
-            li.style.color = 'red';
-        } else if (loan.status === 'Returned') {
-            li.style.color = 'gray';
-        }
-
-        loanList.appendChild(li);
-    });
-}
-    const loanList = document.getElementById('loanList');
-    loanList.innerHTML = '';
-
-    loans.forEach(loan => {
-        const li = document.createElement('li');
-        li.textContent = `${loan.book_title} - Due: ${loan.due_date} (${loan.status})`;
-        
-
-        if (loan.status === 'Overdue') {
-            li.style.color = 'red';
-            li.style.fontWeight = 'bold';
-        } else if (loan.status === 'Returned') {
-            li.style.color = 'gray';
-        } else {
-            li.style.color = 'var(--green-dark)';
-        }
-
-        loanList.appendChild(li);
-    });
-
-async function renewLoan(loanId) {
-  const newDate = new Date();
-  newDate.setDate(newDate.getDate() + 14);
-
-  await supabase
-    .from("loans")
-    .update({ due_date: newDate })
-    .eq("id", loanId);
-
-  alert("Loan renewed!");
-  loadLoans();
+    status.textContent = error
+        ? "Error making reservation: " + error.message
+        : "Reservation successful! 🎉";
 }
 
 
-async function reserveRoom() {
-  const date = document.getElementById("roomDate").value;
-  const time = document.getElementById("roomTime").value;
 
-  const user = (await supabase.auth.getUser()).data.user;
+function appInit() {
+    loadUserInfo();
+    calculateGPA();
+}
 
-  const { error } = await supabase
-    .from("reservations")
-    .insert([{ user_id: user.id, date, time }]);
+document.addEventListener("DOMContentLoaded", appInit);
 
-  const status = document.getElementById("reservationStatus");
 
-  if (error) {
-    status.textContent = "Error booking room.";
-  } else {
-    status.textContent = "Room reserved successfully!";
-  }
-}}
+window.login = login;
+window.logout = logout;
+window.changeName = changeName;
+
+window.searchBooks = searchBooks;
+window.loadLoans = loadLoans;
+window.reserveRoom = reserveRoom;}
