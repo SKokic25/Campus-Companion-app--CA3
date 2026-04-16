@@ -9,7 +9,11 @@ if (window.__APP_SCRIPT_LOADED__) {
   console.warn("script.js already loaded; skipping re-initialization.");
 } else {
   window.__APP_SCRIPT_LOADED__ = true;
-
+  if (!sessionStorage.getItem("visited")) {
+    localStorage.removeItem("loggedIn");
+    sessionStorage.setItem("visited", "true");
+  }
+  
   if (typeof window.__APP_SUPABASE__ === "undefined") {
     if (window.supabase && typeof window.supabase.createClient === "function") {
       window.__APP_SUPABASE__ = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -40,7 +44,7 @@ function loadUserInfo() {
     const dashboardSection = document.getElementById("dashboard");
 
 
-    if (loggedIn === "true") {
+      if (loggedIn === "true" && name !== "Guest") {
         if (loginSection) loginSection.style.display = "none";
         if (dashboardSection) dashboardSection.style.display = "grid"; //
     } else {
@@ -233,6 +237,7 @@ async function deleteReservation(id) {
     } else {
         alert("Reservation cancelled ✅");
 
+
         loadReservations();
     }
 }
@@ -307,10 +312,15 @@ async function loadTable() {
 
 function appInit() {
     loadUserInfo();
-    calculateGPA();
-    loadLoans();
-    loadReservations(); 
-    loadTable();
+
+    const loggedIn = localStorage.getItem("loggedIn");
+
+    if (loggedIn === "true") {
+        calculateGPA();
+        loadLoans();
+        loadReservations(); 
+        loadTable();
+    }
 }
 
 document.addEventListener("DOMContentLoaded", appInit);
