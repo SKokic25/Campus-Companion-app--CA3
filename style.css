@@ -11,6 +11,10 @@ body {
   margin: 0;
   background-color: var(--green-extra-light);
   color: var(--green-dark);
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 header {
@@ -43,6 +47,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  flex: 1;
 }
 
 .login-container {
@@ -82,6 +87,10 @@ main {
 
 .login-container button:hover {
   background-color: var(--green-dark);
+}
+
+#dashboard {
+  display: none;
 }
 
 .dashboard {
@@ -454,18 +463,20 @@ footer {
 }
 
 .logout {
-  position: absolute;
-  top: 10px;
-  right: 5px;
-  background-color: #2f6f4e; /* nice green color */
+  display: block;
+  width: 100%;
+  text-align: left;
+  background-color: #2f6f4e;
   color: #fff;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  cursor: pointer;
+  padding: 0.8rem 1rem;
+  border-radius: 0;
   font-weight: bold;
-  transition: background-color 0.3s, transform 0.2s;
-  z-index: 1000; /* make sure it stays on top */
+  transition: background-color 0.3s;
+}
+
+.dropdown-content .logout {
+  border-top: 1px solid #ccc;
+  margin-top: 5px;
 }
 
 .logout:hover {
@@ -512,4 +523,153 @@ footer {
     font-size: 0.95rem;
     padding: 0.7rem;
   }
+}
+
+
+#bookSearch {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-bottom: 0.5rem;
+}
+
+#bookResults {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0.5rem;
+}
+
+#bookResults li {
+  padding: 0.5rem;
+  background-color: var(--white);
+  border-radius: 6px;
+  margin-bottom: 0.3rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+#bookResults li:hover {
+  background-color: var(--green-extra-light);
+  transform: translateY(-2px);
+}
+
+/* ===== LOANS SECTION ===== */
+#loanList {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0.5rem;
+}
+
+#loanList li {
+  padding: 0.6rem;
+  background-color: var(--white);
+  border-radius: 6px;
+  margin-bottom: 0.4rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#loanList li button {
+  background-color: var(--green-light);
+  color: var(--green-dark);
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#loanList li button:hover {
+  background-color: var(--green-main);
+  color: var(--white);
+  transform: scale(1.05);
+}
+
+/* ===== STUDY ROOM RESERVATION ===== */
+#roomDate, #roomTime {
+  width: calc(50% - 5px);
+  padding: 0.6rem;
+  margin-right: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+#reservationStatus {
+  margin-top: 0.5rem;
+  font-weight: bold;
+  color: var(--green-dark);
+}
+
+/* ===== BUTTONS IN SECTIONS ===== */
+section.card button {
+  background-color: var(--green-main);
+  color: var(--white);
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 0.5rem;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+section.card button:hover {
+  background-color: var(--green-dark);
+  transform: translateY(-2px);
+}
+
+/* ===== RESPONSIVENESS FOR LIBRARY SERVICES ===== */
+@media (max-width: 768px) {
+  #roomDate, #roomTime {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  main {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  section.card {
+    padding: 15px;
+  }
+  section.card button {
+    width: 100%;
+  }
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: var(--white);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+thead {
+  background-color: var(--green-main);
+  color: var(--white);
+}
+
+thead th {
+  padding: 12px;
+  text-align: left;
+}
+
+tbody td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+  background-color: var(--green-extra-light);
+}
+
+tbody tr:hover {
+  background-color: #e6f2ec;
 }
