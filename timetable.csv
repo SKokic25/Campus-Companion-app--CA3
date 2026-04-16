@@ -1,0 +1,20 @@
+day, time_slot, subject, teacher, room) VALUES
+('Monday', '09:00 - 10:00', 'Mathematics', 'Mr. Smith', 'A101'),
+('Monday', '10:00 - 11:00', 'English', 'Ms. Johnson', 'B202'),
+('Monday', '11:00 - 12:00', 'Computer Science', 'Dr. Brown', 'Lab 1'),
+
+('Tuesday', '09:00 - 10:00', 'Physics', 'Mr. White', 'C303'),
+('Tuesday', '10:00 - 11:00', 'Mathematics', 'Mr. Smith', 'A101'),
+('Tuesday', '11:00 - 12:00', 'History', 'Ms. Davis', 'D404'),
+
+('Wednesday', '09:00 - 10:00', 'Chemistry', 'Dr. Green', 'Lab 2'),
+('Wednesday', '10:00 - 11:00', 'English', 'Ms. Johnson', 'B202'),
+('Wednesday', '11:00 - 12:00', 'Physical Education', 'Coach Lee', 'Gym'),
+
+('Thursday', '09:00 - 10:00', 'Computer Science', 'Dr. Brown', 'Lab 1'),
+('Thursday', '10:00 - 11:00', 'Physics', 'Mr. White', 'C303'),
+('Thursday', '11:00 - 12:00', 'Mathematics', 'Mr. Smith', 'A101'),
+
+('Friday', '09:00 - 10:00', 'History', 'Ms. Davis', 'D404'),
+('Friday', '10:00 - 11:00', 'Chemistry', 'Dr. Green', 'Lab 2'),
+('Friday', '11:00 - 12:00', 'Free Study', '—', 'Library');
