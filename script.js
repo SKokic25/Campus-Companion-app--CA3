@@ -1,5 +1,5 @@
 
-const SUPABASE_URL = "https://dtgvwyumlcyuvdakoigp.supabase.co";
+const SUPABASE_URL = "https://xxouzugyuyojvdvxcqpm.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh4b3V6dWd5dXlvanZkdnhjcXBtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUyNDQzMTAsImV4cCI6MjA5MDgyMDMxMH0.LChhHhQC-lXG_JDJKhnXduAD3rApFrc-gRpzU8UEaEs";
 
 
@@ -159,16 +159,81 @@ async function loadLoans() {
 
     const { data, error } = await supabase
         .from("loans")
-        .select("id, due_date, books(title)");
+        .select("id, due_date, book_title");
 
     loanList.innerHTML = "";
 
-    if (data) {
-        data.forEach(loan => {
-            const li = document.createElement("li");
-            li.textContent = `Book: ${loan.books.title} | Due: ${loan.due_date}`;
-            loanList.appendChild(li);
-        });
+    if (error) {
+        loanList.innerHTML = "<li>Error loading loans</li>";
+        console.error(error);
+        return;
+    }
+
+    if (!data || data.length === 0) {
+        loanList.innerHTML = "<li>No loans found</li>";
+        return;
+    }
+
+    data.forEach(loan => {
+        const li = document.createElement("li");
+        li.textContent = `📚 ${loan.book_title} | Due: ${loan.due_date}`;
+        loanList.appendChild(li);
+    });
+}
+
+async function loadReservations() {
+    const reservationList = document.getElementById("reservationList");
+
+    const { data, error } = await supabase
+        .from("reservations")
+        .select("id, reservation_date, reservation_time") 
+        .order("reservation_date", { ascending: true });
+
+    reservationList.innerHTML = "";
+
+    if (error) {
+        reservationList.innerHTML = "<li>Error loading reservations</li>";
+        console.error(error);
+        return;
+    }
+
+    if (!data || data.length === 0) {
+        reservationList.innerHTML = "<li>No reservations yet</li>";
+        return;
+    }
+
+    data.forEach(res => {
+        const li = document.createElement("li");
+
+        li.textContent = `📅 ${res.reservation_date} at ⏰ ${res.reservation_time} `;
+
+        const btn = document.createElement("button");
+        btn.textContent = "Cancel";
+        btn.style.marginLeft = "10px";
+
+        btn.onclick = () => deleteReservation(res.id);
+
+        li.appendChild(btn);
+        reservationList.appendChild(li);
+    });
+}
+
+async function deleteReservation(id) {
+    const confirmDelete = confirm("Are you sure you want to cancel this reservation?");
+    if (!confirmDelete) return;
+
+    const { error } = await supabase
+        .from("reservations")
+        .delete()
+        .eq("id", id);
+
+    if (error) {
+        alert("Error deleting reservation: " + error.message);
+        console.error(error);
+    } else {
+        alert("Reservation cancelled ✅");
+
+        loadReservations();
     }
 }
 
@@ -176,26 +241,76 @@ async function reserveRoom() {
     const date = document.getElementById("roomDate").value;
     const time = document.getElementById("roomTime").value;
     const status = document.getElementById("reservationStatus");
+    const reservationList = document.getElementById("reservationList");
 
     if (!date || !time) {
         status.textContent = "Please select both date and time.";
         return;
     }
 
-    const { error } = await supabase
+    const { data, error } = await supabase
         .from("reservations")
-        .insert([{ reservation_date: date, reservation_time: time }]);
+        .insert([{ reservation_date: date, reservation_time: time }])
+        .select();
 
-    status.textContent = error
-        ? "Error making reservation: " + error.message
-        : "Reservation successful! 🎉";
+    if (error) {
+        status.textContent = "Error: " + error.message;
+    } else {
+        status.textContent = "Reservation successful! 🎉";
+
+        const li = document.createElement("li");
+        li.textContent = `📅 ${date} at ⏰ ${time}`;
+        reservationList.appendChild(li);
+
+
+        
+    }
 }
 
+async function loadTable() {
+    const tableBody = document.getElementById("timetableBody");
 
+    if (!tableBody) return;
+
+    const { data, error } = await supabase
+        .from("timetable")
+        .select("*")
+        .order("day", { ascending: true });
+
+    if (error) {
+        tableBody.innerHTML = "<tr><td colspan='5'>Error loading data</td></tr>";
+        console.error(error);
+        return;
+    }
+
+    if (!data || data.length === 0) {
+        tableBody.innerHTML = "<tr><td colspan='5'>No timetable data found</td></tr>";
+        return;
+    }
+
+    tableBody.innerHTML = "";
+
+    data.forEach(row => {
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+            <td>${row.day}</td>
+            <td>${row.time_slot}</td>
+            <td>${row.subject}</td>
+            <td>${row.teacher}</td>
+            <td>${row.room}</td>
+        `;
+
+        tableBody.appendChild(tr);
+    });
+}
 
 function appInit() {
     loadUserInfo();
     calculateGPA();
+    loadLoans();
+    loadReservations(); 
+    loadTable();
 }
 
 document.addEventListener("DOMContentLoaded", appInit);
