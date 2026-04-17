@@ -85,15 +85,7 @@ function login() {
 
     const currentPage = window.location.pathname.split("/").pop();
 
-function togglePassword() {
-  const input = document.getElementById("loginPassword");
-  
-  if (input.type === "password") {
-    input.type = "text";
-  } else {
-    input.type = "password";
-  }
-}
+
     function logout() {
   localStorage.clear();
   sessionStorage.clear();
@@ -102,6 +94,15 @@ function togglePassword() {
 
 window.logout = logout;
 
+  function togglePassword() {
+  const input = document.getElementById("loginPassword");
+  
+  if (input.type === "password") {
+    input.type = "text";
+  } else {
+    input.type = "password";
+  }
+}
   function changeName() {
     const newName = prompt("Enter new name:");
     if (newName && newName.trim()) {
