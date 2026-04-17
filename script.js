@@ -85,8 +85,15 @@ function login() {
 
     const currentPage = window.location.pathname.split("/").pop();
 
-
-
+function togglePassword() {
+  const input = document.getElementById("loginPassword");
+  
+  if (input.type === "password") {
+    input.type = "text";
+  } else {
+    input.type = "password";
+  }
+}
     function logout() {
   localStorage.clear();
   sessionStorage.clear();
