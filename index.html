@@ -29,8 +29,10 @@
 <main>
  <section class="login-container" id="login">
   <h2>Login / Register</h2>
-  <input type="text" placeholder="Username" id="username" />
-  <input type="password" placeholder="Password" id="password" />
+
+  <input type="email" placeholder="Email" id="loginEmail" />
+
+  <input type="password" placeholder="Password" id="loginPassword" />
 
   <label for="courseSelect" class="sr-only"></label>
   <select id="courseSelect">
@@ -44,7 +46,22 @@
     <option value="staff">Staff</option>
   </select>
 
-  <button type="button" onclick="login()">Login</button>
+  <button type="button" onclick="loginStudent()">Login</button>
+
+  <hr>
+
+  <h3>Register as Student</h3>
+
+  <input type="email" placeholder="Email" id="signupEmail" />
+  <input type="password" placeholder="Password" id="signupPassword" />
+
+  <select id="signupCourse">
+    <option value="" disabled selected>Select course</option>
+    <option value="Computer Science">Computer Science</option>
+    <option value="Mechanical Engineering">Mechanical Engineering</option>
+  </select>
+
+  <button type="button" onclick="signupStudent()">Register</button>
 </section>
 
  <section class="dashboard" id="dashboard" style="display:none;">
@@ -96,7 +113,8 @@
   © 2026 Student Companion App
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/umd/supabase.min.js"></script>
-<script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+<script src="script.js" defer></script>
 </body>
 </html>
