@@ -5,11 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Grades</title>
   <link rel="stylesheet" href="style.css">
+
+  <!-- Supabase Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
+
 <body>
 
 <header>
-  <h1>Grades</h1>
+  <h1>Student Progress</h1>
   <nav>
     <div class="dropdown">
       <button class="dropbtn" aria-expanded="false">Menu ▾</button>
@@ -21,60 +25,34 @@
         <a href="lunch_menu.html" role="menuitem">Canteen Menu</a>
         <a href="library_services.html" role="menuitem">Library Services</a>
         <a href="#" class="logout" onclick="logout()">Logout</a>
+
       </div>
     </div>
   </nav>
 </header>
 
-
-  <main>
-
-    <section>
+<main>
+  <section>
     <div class="gpa-card">
-  <h3>Overall GPA</h3>
-  <p class="gpa" id="gpa-value">0.0</p>
+      <h3>Overall GPA</h3>
+      <p class="gpa" id="gpa-value">0.0</p>
+    </div>
+
+    <div id="gradesContainer"></div>
+
+<div class="grade-actions">
+  <button id="saveBtn" onclick="saveGrades()">💾 Save Changes</button>
+  <button id="addGradeBtn" onclick="addGrade()">➕ Add Grade</button>
 </div>
+  </section>
+</main>
 
-<div class="grades-container">
+<footer class="footer">
+  &copy; 2026 Student Companion App
+</footer>
 
-  <div class="grade-card" data-grade="4.0">
-    <h3>Mathematics</h3>
-    <p><strong>Grade:</strong> A</p>
-    <p><strong>Feedback:</strong> Excellent performance</p>
-  </div>
 
-  <div class="grade-card" data-grade="3.3">
-    <h3>Programming</h3>
-    <p><strong>Grade:</strong> B+</p>
-    <p><strong>Feedback:</strong> Good, improve efficiency</p>
-  </div>
-
-  <div class="grade-card" data-grade="3.7">
-    <h3>Algorithms</h3>
-    <p><strong>Grade:</strong> A-</p>
-    <p><strong>Feedback:</strong> Strong understanding</p>
-  </div>
-
-  <div class="grade-card" data-grade="3.0">
-    <h3>Web Development</h3>
-    <p><strong>Grade:</strong> B</p>
-    <p><strong>Feedback:</strong> Improve styling consistency</p>
-  </div>
-
-  <div class="grade-card" data-grade="4.0">
-    <h3>Databases</h3>
-    <p><strong>Grade:</strong> A</p>
-    <p><strong>Feedback:</strong> Great queries and structure</p>
-  </div>
-
-</div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    &copy; 2026 Student Companion App
-  </footer>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/umd/supabase.min.js"></script>
 <script src="script.js"></script>
+
 </body>
 </html>
