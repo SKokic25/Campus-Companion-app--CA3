@@ -83,14 +83,18 @@ function login() {
   if (dashboard) dashboard.scrollIntoView({ behavior: "smooth " });
 }
 
+    const currentPage = window.location.pathname.split("/").pop();
 
-function logout() {
 
+
+    function logout() {
   localStorage.clear();
   sessionStorage.clear();
-
   window.location.href = "index.html";
 }
+
+window.logout = logout;
+
   function changeName() {
     const newName = prompt("Enter new name:");
     if (newName && newName.trim()) {
@@ -99,42 +103,249 @@ function logout() {
     }
   }
 
-  function calculateGPA() {
-    const gradeCards = document.querySelectorAll(".grade-card");
-    let total = 0;
-    let count = 0;
-
-    gradeCards.forEach(card => {
-      const grade = parseFloat(card.getAttribute("data-grade"));
-      if (!isNaN(grade)) {
-        total += grade;
-        count++;
-      }
-    });
-
-    const gpa = count > 0 ? (total / count).toFixed(2) : "0.00";
+  function calculateGPA(grades) {
+  if (!grades || !grades.length) {
     const gpaElem = document.getElementById("gpa-value");
-    if (gpaElem) gpaElem.textContent = gpa;
+    if (gpaElem) gpaElem.textContent = "0.00";
+    return;
   }
 
-  function appInit() {
-    loadUserInfo();
-    if (typeof calculateGPA === "function") calculateGPA();
-    if (typeof loadTable === "function") loadTable();
-  }
+  let total = 0;
 
-  window.login = login;
-  window.logout = logout;
-  window.changeName = changeName;
-
-  document.addEventListener("DOMContentLoaded", appInit);
-
-  window.addEventListener("pageshow", (event) => {
-    loadUserInfo();
-    if (typeof calculateGPA === "function") calculateGPA();
-    if (typeof loadTable === "function") loadTable();
+  grades.forEach(row => {
+    if (!isNaN(row.grade)) {
+      total += row.grade;
+    }
   });
 
+  const gpa = (total / grades.length).toFixed(2);
+
+  const gpaElem = document.getElementById("gpa-value");
+  if (gpaElem) gpaElem.textContent = gpa;
+}
+
+async function loadGradesPage() {
+  const localRole = (localStorage.getItem("userRole") || "").toLowerCase();
+
+  const { data, error } = await supabase
+    .from("grades")
+    .select("*");
+
+  if (error) {
+    console.error("Error loading grades:", error);
+    return;
+  }
+
+  console.log("GRADES DATA:", data);
+
+  renderGradeCards(data || [], localRole);
+  calculateGPA(data || []);
+}
+
+
+function renderGradeCards(grades, role) {
+  const container = document.getElementById("gradesContainer");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  const normalizedRole = (role || "").toLowerCase();
+
+  grades.forEach(row => {
+    const gradeLetter = convertToLetter(row.grade);
+
+    const studentName = row.student_name || "";
+    const courseId = row.course_id || "";
+
+    const card = document.createElement("div");
+    card.classList.add("grade-card");
+    card.style.borderLeft = `8px solid ${gradeColour(row.grade)}`;
+
+    card.innerHTML = `
+      <h3>${courseId}</h3>
+     <p><strong>Student:</strong> ${row.student_display_name || studentName}</p>
+
+      <p><strong>Grade:</strong>
+        <input 
+          type="number" 
+          value="${row.grade}" 
+          data-student-name="${studentName}"
+          data-course-id="${courseId}"
+          class="grade-input"
+          ${normalizedRole === "student" ? "disabled" : ""}
+        >
+        (<span class="grade-letter">${gradeLetter}</span>)
+      </p>
+
+      <p><strong>Feedback:</strong>
+        <input 
+          type="text"
+          value="${row.feedback || ""}"
+          data-student-name="${studentName}"
+          data-course-id="${courseId}"
+          class="feedback-input"
+          ${normalizedRole === "student" ? "disabled" : ""}
+        >
+      </p>
+    `;
+
+    container.appendChild(card);
+  });
+
+  const addBtn = document.getElementById("addGradeBtn");
+  const saveBtn = document.getElementById("saveBtn");
+
+  if (normalizedRole === "staff") {
+    if (addBtn) addBtn.style.display = "block";
+    if (saveBtn) saveBtn.style.display = "block";
+  } else {
+    if (addBtn) addBtn.style.display = "none";
+    if (saveBtn) saveBtn.style.display = "none";
+  }
+}
+
+function convertToLetter(grade) {
+  if (grade >= 90) return "A";
+  if (grade >= 85) return "A-";
+  if (grade >= 80) return "B+";
+  if (grade >= 75) return "B";
+  if (grade >= 70) return "B-";
+  if (grade >= 65) return "C+";
+  if (grade >= 60) return "C";
+  return "D";
+}
+
+function gradeColour(grade) {
+  if (grade >= 85) return "#4CAF50";   
+  if (grade >= 70) return "#FFC107";   
+  return "#F44336";                 
+}
+
+// GPA
+function calculateGPA(grades) {
+  if (!grades.length) return;
+
+  let total = 0;
+  grades.forEach(row => total += row.grade / 25);
+
+  document.getElementById("gpa-value").textContent =
+    (total / grades.length).toFixed(2);
+}
+
+async function addGrade() {
+  const student = prompt("Student name:");
+  const course = prompt("Course name:");
+  const grade = prompt("Grade (0–100):");
+
+  if (!student || !course || !grade) return;
+
+  const { data, error } = await supabase
+    .from("grades")
+    .insert({
+      student_name: student,
+      course_id: course,
+      grade: parseInt(grade),
+      feedback: ""
+    })
+    .select(); // ✅ THIS LINE FIXES IT
+
+  if (error) {
+    console.error(error);
+    alert("Error adding grade ❌");
+    return;
+  }
+
+  alert("Grade added ✅");
+  loadGradesPage();
+}
+
+async function saveGrades() {
+  const role = (localStorage.getItem("userRole") || "").toLowerCase();
+
+  if (role !== "staff") {
+    alert("Students cannot edit ❌");
+    return;
+  }
+
+  const gradeInputs = document.querySelectorAll(".grade-input");
+  const feedbackInputs = document.querySelectorAll(".feedback-input");
+
+  for (let i = 0; i < gradeInputs.length; i++) {
+    const studentName = (gradeInputs[i].dataset.studentName || "").trim();
+    const courseId = (gradeInputs[i].dataset.courseId || "").trim();
+    const gradeValue = parseInt(gradeInputs[i].value, 10);
+    const feedbackValue = feedbackInputs[i].value;
+
+    if (!studentName || !courseId) {
+      alert("Save failed: missing row data");
+      console.error("Missing row data", { studentName, courseId });
+      return;
+    }
+
+    const { data, error } = await supabase
+      .from("grades")
+      .update({
+        grade: gradeValue,
+        feedback: feedbackValue
+      })
+      .eq("student_name", studentName)
+      .eq("course_id", courseId)
+      .select();
+
+    console.log("Updated result:", data);
+    console.log("Update error:", error);
+
+    if (error) {
+      alert("Error saving: " + error.message);
+      console.error(error);
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      alert(`Save failed for ${studentName} / ${courseId}`);
+      return;
+    }
+
+    const card = gradeInputs[i].closest(".grade-card");
+    if (card) {
+      card.style.borderLeft = `8px solid ${gradeColour(gradeValue)}`;
+      const letterSpan = card.querySelector(".grade-letter");
+      if (letterSpan) letterSpan.textContent = convertToLetter(gradeValue);
+    }
+  }
+
+  alert("Changes saved ✅");
+  await loadGradesPage();
+}
+
+async function getCurrentGrades() {
+  const { data } = await supabase.from("grades").select("*");
+  return data || [];
+}
+
+function appInit() {
+  loadUserInfo();
+
+  const loggedIn = localStorage.getItem("loggedIn");
+
+  if (loggedIn === "true") {
+    const currentPage = window.location.pathname.split("/").pop();
+
+    if (currentPage === "grades.html") {
+      loadGradesPage();
+    }
+
+    if (currentPage === "timetable.html") {
+      loadTable();
+    }
+
+    // Optional shared features
+    loadLoans?.();
+    loadReservations?.();
+  }
+}
+
+document.addEventListener("DOMContentLoaded", appInit);
   
 async function searchBooks() {
     const query = document.getElementById("bookSearch").value;
@@ -190,7 +401,7 @@ async function loadReservations() {
 
     const { data, error } = await supabase
         .from("reservations")
-        .select("id, reservation_date, reservation_time") 
+        .select("id, reservation_date, reservation_time")
         .order("reservation_date", { ascending: true });
 
     reservationList.innerHTML = "";
@@ -237,7 +448,6 @@ async function deleteReservation(id) {
     } else {
         alert("Reservation cancelled ✅");
 
-
         loadReservations();
     }
 }
@@ -272,6 +482,9 @@ async function reserveRoom() {
     }
 }
 
+
+
+
 async function loadTable() {
     const tableBody = document.getElementById("timetableBody");
 
@@ -288,6 +501,7 @@ async function loadTable() {
         return;
     }
 
+    
     if (!data || data.length === 0) {
         tableBody.innerHTML = "<tr><td colspan='5'>No timetable data found</td></tr>";
         return;
@@ -310,17 +524,89 @@ async function loadTable() {
     });
 }
 
-function appInit() {
-    loadUserInfo();
 
-    const loggedIn = localStorage.getItem("loggedIn");
+async function signupStudent() {
+  const email = document.getElementById("signupEmail").value.trim();
+  const password = document.getElementById("signupPassword").value.trim();
+  const course = document.getElementById("signupCourse").value.trim();
 
-    if (loggedIn === "true") {
-        calculateGPA();
-        loadLoans();
-        loadReservations(); 
-        loadTable();
+  if (!email || !password || !course) {
+    alert("Please fill in all fields");
+    return;
+  }
+
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        role: "student",
+        course: course
+      }
     }
+  });
+
+  if (error) {
+    alert("Signup failed: " + error.message);
+    return;
+  }
+
+  alert("Signup successful! Please check your email to confirm your account.");
+}
+
+
+
+async function loginStudent() {
+  const email = document.getElementById("loginEmail").value.trim();
+  const password = document.getElementById("loginPassword").value.trim();
+  const roleSelect = document.getElementById("role").value;
+  const courseSelect = document.getElementById("courseSelect").value;
+
+  if (!email || !password) {
+    alert("Please enter email and password");
+    return;
+  }
+
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  if (error) {
+    alert("Login failed: " + error.message);
+    return;
+  }
+
+  const user = data.user;
+
+  localStorage.setItem("loggedIn", "true");
+  localStorage.setItem("userName", user.email);
+  localStorage.setItem("userRole", user.app_metadata.role || roleSelect);
+  localStorage.setItem("userCourse", user.user_metadata.course || courseSelect);
+
+  alert("Login successful!");
+  window.location.href = "index.html";
+}
+
+function appInit() {
+  loadUserInfo();
+
+  const loggedIn = localStorage.getItem("loggedIn");
+
+  if (loggedIn === "true") {
+    const currentPage = window.location.pathname.split("/").pop();
+
+    if (currentPage === "grades.html") {
+      loadGradesPage();
+    }
+
+    if (currentPage === "timetable.html") {
+      loadTable();
+    }
+
+    loadLoans?.();
+    loadReservations?.();
+  }
 }
 
 document.addEventListener("DOMContentLoaded", appInit);
@@ -329,7 +615,11 @@ document.addEventListener("DOMContentLoaded", appInit);
 window.login = login;
 window.logout = logout;
 window.changeName = changeName;
-
+window.signupStudent = signupStudent;
+window.loginStudent = loginStudent;
+window.calculateGPA = calculateGPA;
 window.searchBooks = searchBooks;
 window.loadLoans = loadLoans;
-window.reserveRoom = reserveRoom;}
+window.saveGrades = saveGrades;
+window.addGrade = addGrade;
+window.reserveRoom = reserveRoom; }
