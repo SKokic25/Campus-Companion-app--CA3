@@ -1,4 +1,4 @@
-//Note: Stefan if you are updating inform please as I was also working on the script.js also state what changes were made. Thanks 
+//Note: Stefan if you are updating inform please as I was also working on the script.js for the ML section also state what changes were made. Thanks 
 
 const SUPABASE_URL = "https://xxouzugyuyojvdvxcqpm.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh4b3V6dWd5dXlvanZkdnhjcXBtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUyNDQzMTAsImV4cCI6MjA5MDgyMDMxMH0.LChhHhQC-lXG_JDJKhnXduAD3rApFrc-gRpzU8UEaEs";
