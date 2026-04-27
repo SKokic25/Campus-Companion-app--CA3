@@ -3,7 +3,7 @@ const SUPABASE_URL = "https://xxouzugyuyojvdvxcqpm.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh4b3V6dWd5dXlvanZkdnhjcXBtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUyNDQzMTAsImV4cCI6MjA5MDgyMDMxMH0.LChhHhQC-lXG_JDJKhnXduAD3rApFrc-gRpzU8UEaEs";
 
 
-const supabaseLibrary = window.supabase.createClient
+const supabaseLibrary = window.supabase?.createClient;
 
 if (window.__APP_SCRIPT_LOADED__) {
   console.warn("script.js already loaded; skipping re-initialization.");
@@ -23,6 +23,10 @@ if (window.__APP_SCRIPT_LOADED__) {
     }
   }
   const supabase = window.__APP_SUPABASE__;
+  if (!supabase) {
+  console.error("Supabase client not loaded. Check CDN script order in HTML.");
+}
+
   const TABLE_NAME = "timetable";
 
 function loadUserInfo() {
@@ -86,6 +90,7 @@ function login() {
     const currentPage = window.location.pathname.split("/").pop();
 
 
+
     function logout() {
   localStorage.clear();
   sessionStorage.clear();
@@ -94,7 +99,8 @@ function login() {
 
 window.logout = logout;
 
-  function togglePassword() {
+
+function togglePassword() {
   const input = document.getElementById("loginPassword");
   
   if (input.type === "password") {
@@ -103,6 +109,7 @@ window.logout = logout;
     input.type = "password";
   }
 }
+
   function changeName() {
     const newName = prompt("Enter new name:");
     if (newName && newName.trim()) {
@@ -612,8 +619,13 @@ function appInit() {
       loadTable();
     }
 
-    loadLoans?.();
-    loadReservations?.();
+    if (document.getElementById("loanList")) {
+  loadLoans();
+  }
+
+  if (document.getElementById("reservationList")) {
+  loadReservations();
+  }
   }
 }
 
