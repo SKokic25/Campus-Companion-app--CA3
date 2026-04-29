@@ -339,29 +339,6 @@ async function getCurrentGrades() {
   return data || [];
 }
 
-function appInit() {
-  loadUserInfo();
-
-  const loggedIn = localStorage.getItem("loggedIn");
-
-  if (loggedIn === "true") {
-    const currentPage = window.location.pathname.split("/").pop();
-
-    if (currentPage === "grades.html") {
-      loadGradesPage();
-    }
-
-    if (currentPage === "timetable.html") {
-      loadTable();
-    }
-
-    // Optional shared features
-    loadLoans?.();
-    loadReservations?.();
-  }
-}
-
-document.addEventListener("DOMContentLoaded", appInit);
   
 async function searchBooks() {
     const query = document.getElementById("bookSearch").value;
@@ -607,26 +584,26 @@ async function loginStudent() {
 function appInit() {
   loadUserInfo();
 
-  const loggedIn = localStorage.getItem("loggedIn");
+  const currentPage = window.location.pathname.split("/").pop().toLowerCase();
 
-  if (loggedIn === "true") {
-    const currentPage = window.location.pathname.split("/").pop();
+  console.log("Current page:", currentPage);
 
-    if (currentPage === "grades.html") {
-      loadGradesPage();
-    }
+  if (currentPage.includes("grades")) {
+    console.log("Loading grades page...");
+    loadGradesPage();
+  }
 
-    if (currentPage === "timetable.html") {
-      loadTable();
-    }
+  if (currentPage.includes("timetable")) {
+    console.log("Loading timetable page...");
+    loadTable();
+  }
 
-    if (document.getElementById("loanList")) {
-  loadLoans();
+  if (document.getElementById("loanList")) {
+    loadLoans();
   }
 
   if (document.getElementById("reservationList")) {
-  loadReservations();
-  }
+    loadReservations();
   }
 }
 
