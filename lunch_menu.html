@@ -9,49 +9,51 @@
 <body>
 
 <header>
-  <h1>Daily Canteen Menu</h1>
+  <h1>Student Companion App</h1>
+
   <nav>
     <div class="dropdown">
       <button class="dropbtn" aria-expanded="false">Menu ▾</button>
+
       <div class="dropdown-content" role="menu">
-        <a href="index.html" role="menuitem">Home</a>
-        <a href="timetable.html" role="menuitem">Timetable</a>
-        <a href="grades.html" role="menuitem">Grades</a>
-        <a href="events.html" role="menuitem">Events</a>
-        <a href="lunch_menu.html" role="menuitem">Canteen Menu</a>
-        <a href="library_services.html" role="menuitem">Library Services</a>
-        <a href="#" class="logout" onclick="logout()">Logout</a>
+        <a href="index.html" role="menuitem" data-i18n="home">Home</a>
+        <a href="timetable.html" role="menuitem" data-i18n="timetable">Timetable</a>
+        <a href="grades.html" role="menuitem" data-i18n="grades">Grades</a>
+        <a href="events.html" role="menuitem" data-i18n="events">Events</a>
+        <a href="lunch_menu.html" role="menuitem" data-i18n="canteenMenu">Canteen Menu</a>
+        <a href="library_services.html" role="menuitem" data-i18n="libraryServices">Library Services</a>
+        <a href="Contact_Us.html" role="menuitem" data-i18n="ContactUs">Contact us</a>
+        <a href="#" class="logout" onclick="logout()" data-i18n="logout">Logout</a>
       </div>
     </div>
   </nav>
 </header>
-
 <main>
-  <h2>Lunch Menu</h2>
+  <h2 data-i18n="lunchMenu">Lunch Menu</h2>
 
   <section class="menu-item">
-    <h3>Main Course</h3>
-    <ul><li id="main">Loading…</li></ul>
+    <h3 data-i18n="mainCourse">Main Course</h3>
+    <ul><li id="main" data-i18n="loading">Loading…</li></ul>
   </section>
 
   <section class="menu-item">
-    <h3>Vegetarian Option</h3>
-    <ul><li id="veg">Loading…</li></ul>
+    <h3 data-i18n="vegetarianOption">Vegetarian Option</h3>
+    <ul><li id="veg" data-i18n="loading">Loading…</li></ul>
   </section>
 
   <section class="menu-item">
-    <h3>Dessert</h3>
-    <ul><li id="dessert">Loading…</li></ul>
+    <h3 data-i18n="dessert">Dessert</h3>
+    <ul><li id="dessert" data-i18n="loading">Loading…</li></ul>
   </section>
 
   <section class="menu-item">
-    <h3>Sides</h3>
-    <ul id="sides"><li>Loading…</li></ul>
+    <h3 data-i18n="sides">Sides</h3>
+    <ul id="sides"><li data-i18n="loading">Loading…</li></ul>
   </section>
 
   <section class="menu-item">
-    <h3>Drinks</h3>
-    <ul id="drinks"><li>Loading…</li></ul>
+    <h3 data-i18n="drinks">Drinks</h3>
+    <ul id="drinks"><li data-i18n="loading">Loading…</li></ul>
   </section>
 
   <section id="menu-error" style="color:#b00; margin-top:12px; display:none;"></section>
@@ -62,7 +64,7 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/umd/supabase.min.js"></script>
-<script src="script.js"></script>
+<script src="script.js" defer></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -85,12 +87,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   fetch('menu.json')
     .then(res => {
-      if (!res.ok) throw new Error('menu.json not found (check path or server)');
+      if (!res.ok) throw new Error('menu.json not found');
       return res.json();
     })
     .then(data => {
-
       const menu = data[weekday] || data['default'] || null;
+
       if (!menu) {
         errorEl.style.display = 'block';
         errorEl.textContent = 'No menu available for ' + weekday + '.';
@@ -126,5 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 </script>
+
 </body>
 </html>
