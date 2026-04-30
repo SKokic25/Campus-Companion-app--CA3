@@ -1380,7 +1380,6 @@ tbody tr:hover {
 /* ===== CAMPUS RESOURCES (MATCHED TO YOUR THEME) ===== */
 
 .cr-root {
-  background: var(--green-extra-light);
   padding: 60px 20px;
   font-family: Arial, sans-serif;
 }
