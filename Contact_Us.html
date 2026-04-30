@@ -3,20 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Help & Resources — Campus Companion</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap%22 rel="stylesheet" />
- 
- 
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
 <header>
-  <h1>Student Companion App</h1>
- 
+  <h1 data-i18n="appTitle">Student Companion App</h1>
+
   <nav>
     <div class="dropdown">
-      <button class="dropbtn" aria-expanded="false">Menu ▾</button>
- 
+      <button class="dropbtn" aria-expanded="false" data-i18n="menu">Menu ▾</button>
+
       <div class="dropdown-content" role="menu">
         <a href="index.html" role="menuitem" data-i18n="home">Home</a>
         <a href="timetable.html" role="menuitem" data-i18n="timetable">Timetable</a>
@@ -24,234 +25,279 @@
         <a href="events.html" role="menuitem" data-i18n="events">Events</a>
         <a href="lunch_menu.html" role="menuitem" data-i18n="canteenMenu">Canteen Menu</a>
         <a href="library_services.html" role="menuitem" data-i18n="libraryServices">Library Services</a>
-        <a href="Contact_Us.html" role="menuitem" data-i18n="Contact Us">Contact us</a>
+        <a href="Contact_Us.html" role="menuitem" data-i18n="contactUs">Contact Us</a>
         <a href="#" class="logout" onclick="logout()" data-i18n="logout">Logout</a>
       </div>
     </div>
   </nav>
 </header>
- 
-<section class="cr-root" id="campus-resources">
-  <div class="cr-container">
- 
-    <!-- ── Page Header ── -->
-    <div class="cr-header">
-      <span class="cr-eyebrow">Campus Companion</span>
-      <h1>Help &amp; <em>Resources</em></h1>
-      <p>Every contact you might need as a student, all in one place. Tap any link to visit the resource directly.</p>
-    </div>
- 
-    <!-- ── Emergency Banner ── -->
-    <div class="cr-emergency-banner">
-      <div class="cr-emergency-icon">🚨</div>
-      <div class="cr-emergency-body">
-        <strong>In an emergency, always call 999 or 112 first.</strong>
-        <span>
-          Campus Security is also available 24/7 &mdash;
-          <a href="#" class="cr-link" onclick="return false;">Campus Emergency Line</a>
-          &nbsp;|&nbsp;
-          <span class="cr-phone">+353 1 000 0000</span>
+
+<main>
+  <section class="cr-root" id="campus-resources">
+    <div class="cr-container">
+
+      <div class="cr-header">
+        <span class="cr-eyebrow" data-i18n="campusCompanion">Campus Companion</span>
+
+        <h1 data-i18n="helpResourcesTitle">
+          Help &amp; Resources
+        </h1>
+
+        <p data-i18n="helpResourcesSubtitle">
+          Every contact you might need as a student, all in one place.
+        </p>
+      </div>
+
+      <div class="cr-emergency-banner">
+        <div class="cr-emergency-icon">🚨</div>
+
+        <div class="cr-emergency-body">
+          <strong data-i18n="emergencyText">
+            In an emergency, always call 999 or 112 first.
+          </strong>
+
+          <span>
+            <span data-i18n="campusSecurityText">
+              Campus Security is also available 24/7
+            </span>
+            —
+            <a href="#" class="cr-link" onclick="return false;" data-i18n="campusEmergencyLine">
+              Campus Emergency Line
+            </a>
+            |
+            <span class="cr-phone">+353 1 000 0000</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="cr-category">
+        <span class="cr-category-label" data-i18n="mentalHealth">
+          Mental Health &amp; Wellbeing
         </span>
+        <div class="cr-category-line"></div>
       </div>
+
+      <div class="cr-grid">
+
+        <div class="cr-card">
+          <div class="cr-card-top">
+            <div class="cr-card-icon cr-icon--blue">🧠</div>
+            <span class="cr-card-tag" data-i18n="freeService">Free Service</span>
+          </div>
+
+          <h3 data-i18n="studentCounselling">Student Counselling</h3>
+
+          <p data-i18n="studentCounsellingDesc">
+            Confidential one-to-one sessions with qualified counsellors.
+          </p>
+
+          <div class="cr-links">
+            <a href="#" class="cr-link" onclick="return false;" data-i18n="bookAppointment">
+              Book an Appointment
+            </a>
+
+            <a href="#" class="cr-link" onclick="return false;" data-i18n="openingHours">
+              Opening Hours &amp; Location
+            </a>
+          </div>
+        </div>
+
+        <div class="cr-card">
+          <div class="cr-card-top">
+            <div class="cr-card-icon cr-icon--pink">💬</div>
+            <span class="cr-card-tag">24 / 7</span>
+          </div>
+
+          <h3 data-i18n="samaritansIreland">Samaritans Ireland</h3>
+
+          <p data-i18n="samaritansDesc">
+            Free, confidential listening support any time of day or night.
+          </p>
+
+          <div class="cr-links">
+            <a href="#" class="cr-link" onclick="return false;" data-i18n="visitSamaritans">
+              Visit samaritans.org
+            </a>
+
+            <span class="cr-phone">116 123</span>
+          </div>
+        </div>
+
+        <div class="cr-card">
+          <div class="cr-card-top">
+            <div class="cr-card-icon cr-icon--purple">🌙</div>
+            <span class="cr-card-tag" data-i18n="studentsOnly">Students Only</span>
+          </div>
+
+          <h3>Niteline</h3>
+
+          <p data-i18n="nitelineDesc">
+            Peer-support listening service run by student volunteers.
+          </p>
+
+          <div class="cr-links">
+            <a href="#" class="cr-link" onclick="return false;">niteline.ie</a>
+            <span class="cr-phone">1800 793 793</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="cr-category">
+        <span class="cr-category-label" data-i18n="academicSupport">
+          Academic Support
+        </span>
+        <div class="cr-category-line"></div>
+      </div>
+
+      <div class="cr-grid">
+
+        <div class="cr-card">
+          <div class="cr-card-top">
+            <div class="cr-card-icon cr-icon--blue">📋</div>
+            <span class="cr-card-tag" data-i18n="admin">Admin</span>
+          </div>
+
+          <h3 data-i18n="academicRegistry">Academic Registry</h3>
+
+          <p data-i18n="academicRegistryDesc">
+            Exam timetables, module registration, grade transcripts, and official letters.
+          </p>
+
+          <div class="cr-links">
+            <a href="#" class="cr-link" onclick="return false;" data-i18n="studentPortal">
+              Student Portal
+            </a>
+
+            <a href="#" class="cr-link" onclick="return false;" data-i18n="submitQuery">
+              Submit a Query
+            </a>
+          </div>
+        </div>
+
+        <div class="cr-card">
+          <div class="cr-card-top">
+            <div class="cr-card-icon cr-icon--orange">♿</div>
+            <span class="cr-card-tag" data-i18n="accessibility">Accessibility</span>
+          </div>
+
+          <h3 data-i18n="disabilityService">Disability &amp; Access Service</h3>
+
+          <p data-i18n="disabilityServiceDesc">
+            Reasonable accommodations, assistive technology, and exam support.
+          </p>
+
+          <div class="cr-links">
+            <a href="#" class="cr-link" onclick="return false;" data-i18n="registerSupport">
+              Register for Support
+            </a>
+
+            <a href="#" class="cr-link" onclick="return false;" data-i18n="contactTeam">
+              Contact the Team
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="cr-category">
+        <span class="cr-category-label" data-i18n="financialSupport">
+          Practical &amp; Financial
+        </span>
+        <div class="cr-category-line"></div>
+      </div>
+
+      <div class="cr-grid">
+
+        <div class="cr-card">
+          <div class="cr-card-top">
+            <div class="cr-card-icon cr-icon--green">💶</div>
+            <span class="cr-card-tag" data-i18n="financialAid">Financial Aid</span>
+          </div>
+
+          <h3 data-i18n="studentFinancialAid">Student Financial Aid</h3>
+
+          <p data-i18n="studentFinancialAidDesc">
+            SUSI grants, hardship funds, emergency assistance, and scholarship information.
+          </p>
+
+          <div class="cr-links">
+            <a href="#" class="cr-link" onclick="return false;" data-i18n="susiGrant">
+              SUSI Grant Application
+            </a>
+
+            <a href="#" class="cr-link" onclick="return false;" data-i18n="hardshipFund">
+              Hardship Fund Info
+            </a>
+          </div>
+        </div>
+
+        <div class="cr-card">
+          <div class="cr-card-top">
+            <div class="cr-card-icon cr-icon--teal">💻</div>
+            <span class="cr-card-tag" data-i18n="techSupport">Tech Support</span>
+          </div>
+
+          <h3 data-i18n="itHelpDesk">IT Help Desk</h3>
+
+          <p data-i18n="itHelpDeskDesc">
+            Wi-Fi issues, student email setup, software licences, and device support.
+          </p>
+
+          <div class="cr-links">
+            <a href="#" class="cr-link" onclick="return false;" data-i18n="supportTicket">
+              Log a Support Ticket
+            </a>
+
+            <span class="cr-phone">ext. 4357</span>
+          </div>
+        </div>
+
+        <div class="cr-card">
+          <div class="cr-card-top">
+            <div class="cr-card-icon cr-icon--orange">🤝</div>
+            <span class="cr-card-tag" data-i18n="advocacy">Advocacy</span>
+          </div>
+
+          <h3 data-i18n="studentsUnion">Students' Union</h3>
+
+          <p data-i18n="studentsUnionDesc">
+            Free advice, representation, and advocacy for academic or welfare issues.
+          </p>
+
+          <div class="cr-links">
+            <a href="#" class="cr-link" onclick="return false;" data-i18n="suWebsite">
+              SU Website
+            </a>
+
+            <a href="#" class="cr-link" onclick="return false;" data-i18n="meetOfficers">
+              Meet the Officers
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="cr-footer-note">
+        <span data-i18n="cantFind">Can't find what you're looking for?</span>
+       <a 
+  href="mailto:support@yourdomain.com" 
+  class="cr-link"
+  data-i18n="contactSupport"
+>
+  Contact the Campus Companion support team
+</a>
+      </p>
+
     </div>
- 
- 
-    <div class="cr-category">
-      <span class="cr-category-label">Mental Health &amp; Wellbeing</span>
-      <div class="cr-category-line"></div>
-    </div>
- 
-    <div class="cr-grid">
- 
-      <!-- Card: Student Counselling -->
-      <div class="cr-card">
-        <div class="cr-card-top">
-          <div class="cr-card-icon cr-icon--blue">🧠</div>
-          <span class="cr-card-tag">Free Service</span>
-        </div>
-        <h3>Student Counselling</h3>
-        <p>Confidential one-to-one sessions with qualified counsellors. Walk-in and booked appointments available.</p>
-        <div class="cr-links">
-          <a href="#" class="cr-link" onclick="return false;">
-            <!-- Arrow icon -->
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Book an Appointment
-          </a>
-          <a href="#" class="cr-link" onclick="return false;">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Opening Hours &amp; Location
-          </a>
-        </div>
-      </div>
- 
-      <!-- Card: 24/7 Crisis Line -->
-      <div class="cr-card">
-        <div class="cr-card-top">
-          <div class="cr-card-icon cr-icon--pink">💬</div>
-          <span class="cr-card-tag">24 / 7</span>
-        </div>
-        <h3>Samaritans Ireland</h3>
-        <p>Free, confidential listening support any time of day or night. You don't have to be in crisis to call.</p>
-        <div class="cr-links">
-          <a href="#" class="cr-link" onclick="return false;">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Visit samaritans.org
-          </a>
-          <span class="cr-phone">116 123 (freephone)</span>
-        </div>
-      </div>
- 
-      <!-- Card: Niteline -->
-      <div class="cr-card">
-        <div class="cr-card-top">
-          <div class="cr-card-icon cr-icon--purple">🌙</div>
-          <span class="cr-card-tag">Students Only</span>
-        </div>
-        <h3>Niteline</h3>
-        <p>Peer-support listening service run by student volunteers. Active during term time, evenings only.</p>
-        <div class="cr-links">
-          <a href="#" class="cr-link" onclick="return false;">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            niteline.ie
-          </a>
-          <span class="cr-phone">1800 793 793</span>
-        </div>
-      </div>
- 
-    </div>
- 
- 
- 
-    <div class="cr-category">
-      <span class="cr-category-label">Academic Support</span>
-      <div class="cr-category-line"></div>
-    </div>
- 
-    <div class="cr-grid">
- 
-      <!-- Card: Academic Registry -->
-      <div class="cr-card">
-        <div class="cr-card-top">
-          <div class="cr-card-icon cr-icon--blue">📋</div>
-          <span class="cr-card-tag">Admin</span>
-        </div>
-        <h3>Academic Registry</h3>
-        <p>Exam timetables, module registration, grade transcripts, and official letters.</p>
-        <div class="cr-links">
-          <a href="#" class="cr-link" onclick="return false;">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Student Portal
-          </a>
-          <a href="#" class="cr-link" onclick="return false;">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Submit a Query
-          </a>
-        </div>
-      </div>
- 
-      <!-- Card: Disability Services -->
-      <div class="cr-card">
-        <div class="cr-card-top">
-          <div class="cr-card-icon cr-icon--orange">♿</div>
-          <span class="cr-card-tag">Accessibility</span>
-        </div>
-        <h3>Disability &amp; Access Service</h3>
-        <p>Reasonable accommodations, assistive technology, and exam support for students with disabilities.</p>
-        <div class="cr-links">
-          <a href="#" class="cr-link" onclick="return false;">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Register for Support
-          </a>
-          <a href="#" class="cr-link" onclick="return false;">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Contact the Team
-          </a>
-        </div>
-      </div>
- 
-    </div><!-- /cr-grid -->
- 
- 
-    <div class="cr-category">
-      <span class="cr-category-label">Practical &amp; Financial</span>
-      <div class="cr-category-line"></div>
-    </div>
- 
-    <div class="cr-grid">
- 
-      <!-- Card: Student Finance -->
-      <div class="cr-card">
-        <div class="cr-card-top">
-          <div class="cr-card-icon cr-icon--green">💶</div>
-          <span class="cr-card-tag">Financial Aid</span>
-        </div>
-        <h3>Student Financial Aid</h3>
-        <p>SUSI grants, hardship funds, emergency assistance, and scholarship information.</p>
-        <div class="cr-links">
-          <a href="#" class="cr-link" onclick="return false;">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            SUSI Grant Application
-          </a>
-          <a href="#" class="cr-link" onclick="return false;">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Hardship Fund Info
-          </a>
-        </div>
-      </div>
- 
-      <!-- Card: IT Help Desk -->
-      <div class="cr-card">
-        <div class="cr-card-top">
-          <div class="cr-card-icon cr-icon--teal">💻</div>
-          <span class="cr-card-tag">Tech Support</span>
-        </div>
-        <h3>IT Help Desk</h3>
-        <p>Wi-Fi issues, student email setup, software licences, and device support from the campus IT team.</p>
-        <div class="cr-links">
-          <a href="#" class="cr-link" onclick="return false;">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Log a Support Ticket
-          </a>
-          <span class="cr-phone">ext. 4357</span>
-        </div>
-      </div>
- 
-      <!-- Card: Students' Union -->
-      <div class="cr-card">
-        <div class="cr-card-top">
-          <div class="cr-card-icon cr-icon--orange">🤝</div>
-          <span class="cr-card-tag">Advocacy</span>
-        </div>
-        <h3>Students' Union</h3>
-        <p>Free advice, representation, and advocacy for academic or welfare issues. Your voice on campus.</p>
-        <div class="cr-links">
-          <a href="#" class="cr-link" onclick="return false;">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            SU Website
-          </a>
-          <a href="#" class="cr-link" onclick="return false;">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Meet the Officers
-          </a>
-        </div>
-      </div>
- 
-    </div><!-- /cr-grid -->
- 
- 
-    <!-- ── Footer note ── -->
-    <p class="cr-footer-note">
-      Can't find what you're looking for?&nbsp;
-      <a href="#" class="cr-link" onclick="return false;">Contact the Campus Companion support team</a>
-      &nbsp;and we'll point you in the right direction.
-    </p>
-     
- 
-  </div><!-- /cr-container -->
-</section>
+  </section>
+</main>
+
 <footer>
   © 2026 Student Companion App
 </footer>
- 
+
+<script src="script.js" defer></script>
+
 </body>
 </html>
