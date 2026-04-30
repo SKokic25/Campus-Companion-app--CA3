@@ -1,0 +1,565 @@
+<!--
+  ============================================================
+  CAMPUS COMPANION — Help & Resources Section
+  ============================================================
+  HOW TO USE THIS IN YOUR FRIEND'S PROJECT:
+  
+  Option A — Drop in the full file as a standalone page
+  Option B — Copy everything between the <section> tags and
+             paste it wherever you want inside your friend's
+             existing HTML. The <style> block can go into his
+             existing <head> or at the top of a shared CSS file.
+             No JS needed. Nothing will conflict with his code
+             as long as his project doesn't already define the
+             same CSS custom-property names (they're scoped).
+  ============================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Help & Resources — Campus Companion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Scoped custom properties (won't clash with existing code) ── */
+    .cr-root {
+      --cr-bg:          #2f6f4e;
+      --cr-surface:     #ffffff;
+      --cr-border:      #e4e0db;
+      --cr-accent:      #2d5be3;
+      --cr-accent-soft: #eef1fd;
+      --cr-text:        #1a1a1a;
+      --cr-muted:       #6b6762;
+      --cr-tag-bg:      #fffbf0;
+      --cr-tag-border:  #f0e4c0;
+      --cr-tag-text:    #8a6d20;
+      --cr-emergency:   #c0392b;
+      --cr-emergency-soft: #fdf0ef;
+      --cr-radius:      14px;
+      --cr-radius-sm:   8px;
+      --cr-shadow:      0 2px 12px rgba(0,0,0,.06), 0 1px 3px rgba(0,0,0,.04);
+      --cr-shadow-hover:0 8px 28px rgba(0,0,0,.10), 0 2px 6px rgba(0,0,0,.06);
+      --cr-font-display: 'DM Serif Display', Georgia, serif;
+      --cr-font-body:    'DM Sans', system-ui, sans-serif;
+    }
+
+    /* ── Reset only inside our section ── */
+    .cr-root *, .cr-root *::before, .cr-root *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ── Section wrapper ── */
+    .cr-root {
+      font-family: var(--cr-font-body);
+      color: var(--cr-text);
+      background: var(--cr-bg);
+      padding: 64px 24px 80px;
+      min-height: 100vh; /* remove this line if embedding inside an existing page */
+    }
+
+    /* ── Inner container ── */
+    .cr-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ── Header ── */
+    .cr-header {
+      text-align: center;
+      margin-bottom: 52px;
+    }
+
+    .cr-eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--cr-accent);
+      background: var(--cr-accent-soft);
+      border-radius: 100px;
+      padding: 5px 14px;
+      margin-bottom: 18px;
+    }
+
+    .cr-header h1 {
+      font-family: var(--cr-font-display);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--cr-text);
+      margin-bottom: 14px;
+    }
+
+    .cr-header h1 em {
+      font-style: italic;
+      color: var(--cr-accent);
+    }
+
+    .cr-header p {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--cr-muted);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.65;
+    }
+
+    /* ── Emergency banner ── */
+    .cr-emergency-banner {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: var(--cr-emergency-soft);
+      border: 1.5px solid #f5c6c2;
+      border-radius: var(--cr-radius);
+      padding: 20px 24px;
+      margin-bottom: 40px;
+    }
+
+    .cr-emergency-icon {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background: var(--cr-emergency);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: #fff;
+    }
+
+    .cr-emergency-body strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--cr-emergency);
+      margin-bottom: 4px;
+    }
+
+    .cr-emergency-body span {
+      font-size: 13.5px;
+      color: #7a2a24;
+      line-height: 1.5;
+    }
+
+    .cr-emergency-body .cr-link {
+      color: var(--cr-emergency);
+      font-weight: 600;
+    }
+
+    /* ── Category label ── */
+    .cr-category {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      margin-top: 40px;
+    }
+
+    .cr-category:first-of-type {
+      margin-top: 0;
+    }
+
+    .cr-category-label {
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--cr-muted);
+    }
+
+    .cr-category-line {
+      flex: 1;
+      height: 1px;
+      background: var(--cr-border);
+    }
+
+    /* ── Cards grid ── */
+    .cr-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+
+    /* ── Individual card ── */
+    .cr-card {
+      background: var(--cr-surface);
+      border: 1.5px solid var(--cr-border);
+      border-radius: var(--cr-radius);
+      padding: 22px 22px 20px;
+      box-shadow: var(--cr-shadow);
+      transition: box-shadow .22s ease, border-color .22s ease, transform .22s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .cr-card:hover {
+      box-shadow: var(--cr-shadow-hover);
+      border-color: #c8d4f8;
+      transform: translateY(-2px);
+    }
+
+    .cr-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .cr-card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .cr-card-tag {
+      font-size: 11px;
+      font-weight: 500;
+      background: var(--cr-tag-bg);
+      color: var(--cr-tag-text);
+      border: 1px solid var(--cr-tag-border);
+      border-radius: 100px;
+      padding: 3px 10px;
+      white-space: nowrap;
+    }
+
+    .cr-card h3 {
+      font-family: var(--cr-font-display);
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--cr-text);
+      line-height: 1.25;
+    }
+
+    .cr-card p {
+      font-size: 13.5px;
+      color: var(--cr-muted);
+      line-height: 1.6;
+      font-weight: 300;
+      flex: 1;
+    }
+
+    /* ── Links inside cards ── */
+    .cr-links {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-top: 4px;
+    }
+
+    .cr-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--cr-accent);
+      text-decoration: none;
+      cursor: pointer;
+      transition: opacity .18s;
+    }
+
+    .cr-link:hover {
+      opacity: .7;
+      text-decoration: underline;
+    }
+
+    .cr-link svg {
+      flex-shrink: 0;
+      opacity: .65;
+    }
+
+    /* ── Phone highlight ── */
+    .cr-phone {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--cr-text);
+      background: var(--cr-bg);
+      border-radius: var(--cr-radius-sm);
+      padding: 4px 10px;
+      border: 1px solid var(--cr-border);
+      letter-spacing: .02em;
+    }
+
+    /* ── Footer note ── */
+    .cr-footer-note {
+      margin-top: 48px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--cr-muted);
+      line-height: 1.7;
+    }
+
+    /* ── Color tokens for icons ── */
+    .cr-icon--blue   { background: #eef1fd; }
+    .cr-icon--green  { background: #edf7f0; }
+    .cr-icon--orange { background: #fff5ec; }
+    .cr-icon--purple { background: #f3eeff; }
+    .cr-icon--pink   { background: #ffeef5; }
+    .cr-icon--teal   { background: #e8f8f5; }
+
+    /* ── Responsive ── */
+    @media (max-width: 540px) {
+      .cr-root { padding: 40px 16px 60px; }
+      .cr-header h1 { font-size: 1.8rem; }
+      .cr-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!--
+  ╔══════════════════════════════════════════════════════════╗
+  ║  START OF EMBEDDABLE SECTION                             ║
+  ║  Copy from here (including the <section> tag) to the    ║
+  ║  matching END comment below.                             ║
+  ╚══════════════════════════════════════════════════════════╝
+-->
+<section class="cr-root" id="campus-resources">
+  <div class="cr-container">
+
+    <!-- ── Page Header ── -->
+    <div class="cr-header">
+      <span class="cr-eyebrow">Campus Companion</span>
+      <h1>Help &amp; <em>Resources</em></h1>
+      <p>Every contact you might need as a student, all in one place. Tap any link to visit the resource directly.</p>
+    </div>
+
+    <!-- ── Emergency Banner ── -->
+    <div class="cr-emergency-banner">
+      <div class="cr-emergency-icon">🚨</div>
+      <div class="cr-emergency-body">
+        <strong>In an emergency, always call 999 or 112 first.</strong>
+        <span>
+          Campus Security is also available 24/7 &mdash;
+          <a href="#" class="cr-link" onclick="return false;">Campus Emergency Line</a>
+          &nbsp;|&nbsp;
+          <span class="cr-phone">+353 1 000 0000</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- CATEGORY 1 — Mental Health & Wellbeing -->
+    <!-- ════════════════════════════════════ -->
+    <div class="cr-category">
+      <span class="cr-category-label">Mental Health &amp; Wellbeing</span>
+      <div class="cr-category-line"></div>
+    </div>
+
+    <div class="cr-grid">
+
+      <!-- Card: Student Counselling -->
+      <div class="cr-card">
+        <div class="cr-card-top">
+          <div class="cr-card-icon cr-icon--blue">🧠</div>
+          <span class="cr-card-tag">Free Service</span>
+        </div>
+        <h3>Student Counselling</h3>
+        <p>Confidential one-to-one sessions with qualified counsellors. Walk-in and booked appointments available.</p>
+        <div class="cr-links">
+          <a href="#" class="cr-link" onclick="return false;">
+            <!-- Arrow icon -->
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Book an Appointment
+          </a>
+          <a href="#" class="cr-link" onclick="return false;">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Opening Hours &amp; Location
+          </a>
+        </div>
+      </div>
+
+      <!-- Card: 24/7 Crisis Line -->
+      <div class="cr-card">
+        <div class="cr-card-top">
+          <div class="cr-card-icon cr-icon--pink">💬</div>
+          <span class="cr-card-tag">24 / 7</span>
+        </div>
+        <h3>Samaritans Ireland</h3>
+        <p>Free, confidential listening support any time of day or night. You don't have to be in crisis to call.</p>
+        <div class="cr-links">
+          <a href="#" class="cr-link" onclick="return false;">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Visit samaritans.org
+          </a>
+          <span class="cr-phone">116 123 (freephone)</span>
+        </div>
+      </div>
+
+      <!-- Card: Niteline -->
+      <div class="cr-card">
+        <div class="cr-card-top">
+          <div class="cr-card-icon cr-icon--purple">🌙</div>
+          <span class="cr-card-tag">Students Only</span>
+        </div>
+        <h3>Niteline</h3>
+        <p>Peer-support listening service run by student volunteers. Active during term time, evenings only.</p>
+        <div class="cr-links">
+          <a href="#" class="cr-link" onclick="return false;">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            niteline.ie
+          </a>
+          <span class="cr-phone">1800 793 793</span>
+        </div>
+      </div>
+
+    </div><!-- /cr-grid -->
+
+
+    <!-- ════════════════════════════════════ -->
+    <!-- CATEGORY 2 — Academic Support       -->
+    <!-- ════════════════════════════════════ -->
+    <div class="cr-category">
+      <span class="cr-category-label">Academic Support</span>
+      <div class="cr-category-line"></div>
+    </div>
+
+    <div class="cr-grid">
+
+      <!-- Card: Academic Registry -->
+      <div class="cr-card">
+        <div class="cr-card-top">
+          <div class="cr-card-icon cr-icon--blue">📋</div>
+          <span class="cr-card-tag">Admin</span>
+        </div>
+        <h3>Academic Registry</h3>
+        <p>Exam timetables, module registration, grade transcripts, and official letters.</p>
+        <div class="cr-links">
+          <a href="#" class="cr-link" onclick="return false;">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Student Portal
+          </a>
+          <a href="#" class="cr-link" onclick="return false;">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Submit a Query
+          </a>
+        </div>
+      </div>
+
+      <!-- Card: Disability Services -->
+      <div class="cr-card">
+        <div class="cr-card-top">
+          <div class="cr-card-icon cr-icon--orange">♿</div>
+          <span class="cr-card-tag">Accessibility</span>
+        </div>
+        <h3>Disability &amp; Access Service</h3>
+        <p>Reasonable accommodations, assistive technology, and exam support for students with disabilities.</p>
+        <div class="cr-links">
+          <a href="#" class="cr-link" onclick="return false;">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Register for Support
+          </a>
+          <a href="#" class="cr-link" onclick="return false;">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Contact the Team
+          </a>
+        </div>
+      </div>
+
+    </div><!-- /cr-grid -->
+
+
+    <!-- ════════════════════════════════════ -->
+    <!-- CATEGORY 3 — Practical & Financial  -->
+    <!-- ════════════════════════════════════ -->
+    <div class="cr-category">
+      <span class="cr-category-label">Practical &amp; Financial</span>
+      <div class="cr-category-line"></div>
+    </div>
+
+    <div class="cr-grid">
+
+      <!-- Card: Student Finance -->
+      <div class="cr-card">
+        <div class="cr-card-top">
+          <div class="cr-card-icon cr-icon--green">💶</div>
+          <span class="cr-card-tag">Financial Aid</span>
+        </div>
+        <h3>Student Financial Aid</h3>
+        <p>SUSI grants, hardship funds, emergency assistance, and scholarship information.</p>
+        <div class="cr-links">
+          <a href="#" class="cr-link" onclick="return false;">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            SUSI Grant Application
+          </a>
+          <a href="#" class="cr-link" onclick="return false;">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Hardship Fund Info
+          </a>
+        </div>
+      </div>
+
+      <!-- Card: IT Help Desk -->
+      <div class="cr-card">
+        <div class="cr-card-top">
+          <div class="cr-card-icon cr-icon--teal">💻</div>
+          <span class="cr-card-tag">Tech Support</span>
+        </div>
+        <h3>IT Help Desk</h3>
+        <p>Wi-Fi issues, student email setup, software licences, and device support from the campus IT team.</p>
+        <div class="cr-links">
+          <a href="#" class="cr-link" onclick="return false;">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Log a Support Ticket
+          </a>
+          <span class="cr-phone">ext. 4357</span>
+        </div>
+      </div>
+
+      <!-- Card: Students' Union -->
+      <div class="cr-card">
+        <div class="cr-card-top">
+          <div class="cr-card-icon cr-icon--orange">🤝</div>
+          <span class="cr-card-tag">Advocacy</span>
+        </div>
+        <h3>Students' Union</h3>
+        <p>Free advice, representation, and advocacy for academic or welfare issues. Your voice on campus.</p>
+        <div class="cr-links">
+          <a href="#" class="cr-link" onclick="return false;">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            SU Website
+          </a>
+          <a href="#" class="cr-link" onclick="return false;">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Meet the Officers
+          </a>
+        </div>
+      </div>
+
+    </div><!-- /cr-grid -->
+
+
+    <!-- ── Footer note ── -->
+    <p class="cr-footer-note">
+      Can't find what you're looking for?&nbsp;
+      <a href="#" class="cr-link" onclick="return false;">Contact the Campus Companion support team</a>
+      &nbsp;and we'll point you in the right direction.
+    </p>
+
+  </div><!-- /cr-container -->
+</section>
+<!--
+  ╔══════════════════════════════════════════════════════════╗
+  ║  END OF EMBEDDABLE SECTION                               ║
+  ╚══════════════════════════════════════════════════════════╝
+-->
+
+</body>
+</html>
