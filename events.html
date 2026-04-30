@@ -10,24 +10,25 @@
 <body>
 
 <header>
-  <h1>Events</h1>
+  <h1>Student Companion App</h1>
 
   <nav>
     <div class="dropdown">
-      <button class="dropbtn">Menu ▾</button>
-      <div class="dropdown-content">
-        <a href="index.html">Home</a>
-        <a href="timetable.html">Timetable</a>
-        <a href="grades.html">Grades</a>
-        <a href="events.html">Events</a>
-        <a href="lunch_menu.html">Canteen Menu</a>
-        <a href="library_services.html">Library Services</a>
-        <a href="#" onclick="logout()">Logout</a>
+      <button class="dropbtn" aria-expanded="false">Menu ▾</button>
+
+      <div class="dropdown-content" role="menu">
+        <a href="index.html" role="menuitem" data-i18n="home">Home</a>
+        <a href="timetable.html" role="menuitem" data-i18n="timetable">Timetable</a>
+        <a href="grades.html" role="menuitem" data-i18n="grades">Grades</a>
+        <a href="events.html" role="menuitem" data-i18n="events">Events</a>
+        <a href="lunch_menu.html" role="menuitem" data-i18n="canteenMenu">Canteen Menu</a>
+        <a href="library_services.html" role="menuitem" data-i18n="libraryServices">Library Services</a>
+        <a href="Contact_Us.html" role="menuitem" data-i18n="Contact Us">Contactus</a>
+        <a href="#" class="logout" onclick="logout()" data-i18n="logout">Logout</a>
       </div>
     </div>
   </nav>
 </header>
-
 <main>
 
 <h2>Upcoming Events</h2>
@@ -36,12 +37,12 @@
   <input type="text" id="eventName" placeholder="Event name">
   <input type="date" id="eventDate">
 
-  <select id="eventCategory">
-    <option value="">Select category</option>
-    <option value="academic">Academic</option>
-    <option value="sports">Sports</option>
-    <option value="social">Social</option>
-  </select>
+<select id="eventCategory">
+  <option value="" data-i18n="selectCategory">Select category</option>
+  <option value="academic" data-i18n="academic">Academic</option>
+  <option value="sports" data-i18n="sports">Sports</option>
+  <option value="social" data-i18n="social">Social</option>
+</select>
 
   <button id="addEventBtn">Add Event</button>
 </div>
@@ -53,10 +54,10 @@
 <button id="showRecBtn">Show Recommendations</button>
 
 <select id="recType">
-  <option value="">Choose type</option>
-  <option value="academic">Academic</option>
-  <option value="sports">Sports</option>
-  <option value="social">Social</option>
+  <option value="" data-i18n="chooseType">Choose type</option>
+  <option value="academic" data-i18n="academic">Academic</option>
+  <option value="sports" data-i18n="sports">Sports</option>
+  <option value="social" data-i18n="social">Social</option>
 </select>
 
 <div id="recommended"></div>
@@ -227,5 +228,6 @@ document.addEventListener("DOMContentLoaded", () => {
   <footer>
     © 2026 Student Companion App
   </footer>
+  <script src="script.js" defer></script>
 </body>
 </html>
