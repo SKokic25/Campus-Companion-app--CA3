@@ -13,19 +13,21 @@
 <body>
 
 <header>
-  <h1>Student Progress</h1>
+  <h1>Student Companion App</h1>
+
   <nav>
     <div class="dropdown">
       <button class="dropbtn" aria-expanded="false">Menu ▾</button>
-      <div class="dropdown-content" role="menu">
-        <a href="index.html" role="menuitem">Home</a>
-        <a href="timetable.html" role="menuitem">Timetable</a>
-        <a href="grades.html" role="menuitem">Grades</a>
-        <a href="events.html" role="menuitem">Events</a>
-        <a href="lunch_menu.html" role="menuitem">Canteen Menu</a>
-        <a href="library_services.html" role="menuitem">Library Services</a>
-        <a href="#" class="logout" onclick="logout()">Logout</a>
 
+      <div class="dropdown-content" role="menu">
+        <a href="index.html" role="menuitem" data-i18n="home">Home</a>
+        <a href="timetable.html" role="menuitem" data-i18n="timetable">Timetable</a>
+        <a href="grades.html" role="menuitem" data-i18n="grades">Grades</a>
+        <a href="events.html" role="menuitem" data-i18n="events">Events</a>
+        <a href="lunch_menu.html" role="menuitem" data-i18n="canteenMenu">Canteen Menu</a>
+        <a href="library_services.html" role="menuitem" data-i18n="libraryServices">Library Services</a>
+        <a href="Contact_Us.html" role="menuitem" data-i18n="ContactUs">Contact us</a>
+        <a href="#" class="logout" onclick="logout()" data-i18n="logout">Logout</a>
       </div>
     </div>
   </nav>
@@ -33,26 +35,32 @@
 
 <main>
   <section>
+
     <div class="gpa-card">
-      <h3>Overall GPA</h3>
+      <h3 data-i18n="overallGPA">Overall GPA</h3>
       <p class="gpa" id="gpa-value">0.0</p>
     </div>
 
     <div id="gradesContainer"></div>
 
-<div class="grade-actions">
-  <button id="saveBtn" onclick="saveGrades()">💾 Save Changes</button>
-  <button id="addGradeBtn" onclick="addGrade()">➕ Add Grade</button>
-</div>
+    <div class="grade-actions">
+      <button id="saveBtn" onclick="saveGrades()" data-i18n="saveChanges">
+        💾 Save Changes
+      </button>
+
+      <button id="addGradeBtn" onclick="addGrade()" data-i18n="addGrade">
+        ➕ Add Grade
+      </button>
+    </div>
+
   </section>
 </main>
-
 <footer class="footer">
   &copy; 2026 Student Companion App
 </footer>
 
 
-<script src="script.js"></script>
+<script src="script.js" defer></script>
 
 </body>
 </html>
