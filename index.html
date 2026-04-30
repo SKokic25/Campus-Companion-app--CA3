@@ -4,120 +4,262 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Student Companion App</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
+
 <body>
 
 <header>
   <h1>Student Companion App</h1>
+
   <nav>
     <div class="dropdown">
       <button class="dropbtn" aria-expanded="false">Menu ▾</button>
+
       <div class="dropdown-content" role="menu">
-        <a href="index.html" role="menuitem">Home</a>
-        <a href="timetable.html" role="menuitem">Timetable</a>
-        <a href="grades.html" role="menuitem">Grades</a>
-        <a href="events.html" role="menuitem">Events</a>
-        <a href="lunch_menu.html" role="menuitem">Canteen Menu</a>
-        <a href="library_services.html" role="menuitem">Library Services</a>
-        <a href="#" class="logout" onclick="logout()">Logout</a>
+        <a href="index.html" role="menuitem" data-i18n="home">Home</a>
+        <a href="timetable.html" role="menuitem" data-i18n="timetable">Timetable</a>
+        <a href="grades.html" role="menuitem" data-i18n="grades">Grades</a>
+        <a href="events.html" role="menuitem" data-i18n="events">Events</a>
+        <a href="lunch_menu.html" role="menuitem" data-i18n="canteenMenu">Canteen Menu</a>
+        <a href="library_services.html" role="menuitem" data-i18n="libraryServices">Library Services</a>
+        <a href="Contact_Us.html" role="menuitem" data-i18n="ContactUs">Contact us</a>
+        <a href="#" class="logout" onclick="logout()" data-i18n="logout">Logout</a>
       </div>
     </div>
   </nav>
 </header>
 
 <main>
- <section class="login-container" id="login">
-  <h2>Login / Register</h2>
 
-  <input type="email" placeholder="Email" id="loginEmail" />
+  <!-- LOGIN / SIGNUP PAGE -->
+  <section class="auth-page">
 
-   <div class="password-wrapper">
-  <input type="password" placeholder="Password" id="loginPassword" />
-  <span class="toggle-password" onclick="togglePassword()">👁️</span>
-</div>
+    <div class="auth-card">
 
-  <label for="courseSelect" class="sr-only"></label>
-  <select id="courseSelect">
-    <option value="" disabled selected>Select course</option>
-    <option value="Computer Science">Computer Science</option>
-    <option value="Mechanical Engineering">Mechanical Engineering</option>
-  </select>
+      <div class="language-box">
+        <select id="languageSelect" onchange="changeLanguage(this.value)">
+          <option value="en">English</option>
+          <option value="sr">Serbian</option>
+          <option value="es">Spanish</option>
+          <option value="pl">Polish</option>
+          <option value="hr">Croatian</option>
+        </select>
+      </div>
 
-  <select id="role">
-    <option value="student">Student</option>
-    <option value="staff">Staff</option>
-  </select>
+      <div class="logo">
+        Companion <span>App</span>
+      </div>
 
-  <button type="button" onclick="loginStudent()">Login</button>
+      <!-- LOGIN FORM -->
+      <div id="loginForm">
 
-  <hr>
+        <h1 data-i18n="welcomeBack">Welcome back</h1>
 
-  <h3>Register as Student</h3>
+        <p class="subtitle" data-i18n="enterDetails"> 
+          Please enter your details
+        </p>
 
-  <input type="email" placeholder="Email" id="signupEmail" />
-  <input type="password" placeholder="Password" id="signupPassword" />
+        <div class="input-group">
+          <input 
+            type="email" 
+            id="loginEmail" 
+            placeholder="Student email"
+            data-i18n-placeholder="studentEmail"
+          >
+          <span class="icon">📧</span>
+        </div>
 
-  <select id="signupCourse">
-    <option value="" disabled selected>Select course</option>
-    <option value="Computer Science">Computer Science</option>
-    <option value="Mechanical Engineering">Mechanical Engineering</option>
-  </select>
+        <div class="input-group">
+          <input 
+            type="password" 
+            id="loginPassword" 
+            placeholder="Password"
+            data-i18n-placeholder="password"
+          >
+          <span class="icon toggle-password" onclick="togglePassword()">👁️</span>
+        </div>
 
-  <button type="button" onclick="signupStudent()">Register</button>
-</section>
+        <div class="input-group">
+          <select id="role" class="custom-select">
+            <option value="student" data-i18n="student">Student</option>
+            <option value="staff" data-i18n="staff">Staff</option>
+          </select>
+          <span class="icon">🎓</span>
+        </div>
 
+        <div class="input-group">
+          <select id="courseSelect" class="custom-select">
+            <option value="" data-i18n="selectCourse">Select Course</option>
+            <option value="Computer Science">Computer Science</option>
+            <option value="Mechanical Engineering">Mechanical Engineering</option>
+          </select>
+          <span class="icon">📚</span>
+        </div>
+
+        <button 
+          class="auth-btn" 
+          type="button" 
+          onclick="loginStudent()" 
+          data-i18n="login"
+        >
+          Log In
+        </button>
+
+        <button 
+          type="button" 
+          class="forgot-password-btn" 
+          onclick="forgotPassword()" 
+          data-i18n="forgotPassword"
+        >
+          Forgot password?
+        </button>
+
+        <div class="divider">OR</div>
+
+        <div class="switch">
+          <span data-i18n="dontHaveAccount">Don't have an account?</span>
+          <button type="button" onclick="toggleForms()" data-i18n="signup">
+            Sign Up
+          </button>
+        </div>
+
+      </div>
+
+      <!-- SIGNUP FORM -->
+      <div id="signupForm" class="hidden">
+
+        <h1 data-i18n="createAccount">Create Account</h1>
+
+        <p class="subtitle" data-i18n="createStudentAccount">
+          Create your student account
+        </p>
+
+        <div class="input-group">
+          <input 
+            type="text" 
+            id="firstName" 
+            placeholder="First Name"
+            data-i18n-placeholder="firstName"
+          >
+          <span class="icon">👤</span>
+        </div>
+
+        <div class="input-group">
+          <input 
+            type="text" 
+            id="lastName" 
+            placeholder="Last Name"
+            data-i18n-placeholder="lastName"
+          >
+          <span class="icon">👤</span>
+        </div>
+
+        <div class="input-group">
+          <input 
+            type="email" 
+            id="signupEmail" 
+            placeholder="Email"
+            data-i18n-placeholder="email"
+          >
+          <span class="icon">📧</span>
+        </div>
+
+        <div class="input-group">
+          <input 
+            type="password" 
+            id="signupPassword" 
+            placeholder="Password"
+            data-i18n-placeholder="password"
+          >
+          <span class="icon">🔒</span>
+        </div>
+
+        <div class="input-group">
+          <select id="signupCourse" class="custom-select">
+            <option value="" data-i18n="selectCourse">Select Course</option>
+            <option value="Computer Science">Computer Science</option>
+            <option value="Mechanical Engineering">Mechanical Engineering</option>
+          </select>
+          <span class="icon">📚</span>
+        </div>
+
+        <button 
+          class="auth-btn" 
+          type="button" 
+          onclick="signupStudent()" 
+          data-i18n="signup"
+        >
+          Sign Up
+        </button>
+
+        <div class="divider">OR</div>
+
+        <div class="switch">
+          <span data-i18n="alreadyHaveAccount">Already have an account?</span>
+          <button type="button" onclick="toggleForms()" data-i18n="login">
+            Log In
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- DASHBOARD -->
  <section class="dashboard" id="dashboard" style="display:none;">
-    <div class="card">
-      <h3>Personal Info</h3>
-      <p>Name: <span id="user-name">Guest</span></p>
-      <p>Course: <span id="user-course">Computer Science</span></p>
-      <p>User Type: <span id="user-role">Student</span></p>
-      <button class="btn" onclick="changeName()">Change Name</button>
-    </div>
 
-    <div class="card" id="timetable">
-      <h3>Timetable</h3>
-      <p>View your weekly classes</p>
-      <a class="btn" href="timetable.html">View Timetable</a>
-    </div>
+  <div class="card">
+    <h3 data-i18n="personalInfo">Personal Info</h3>
+    <p><span data-i18n="name">Name</span>: <span id="user-name">Guest</span></p>
+    <p><span data-i18n="course">Course</span>: <span id="user-course">Computer Science</span></p>
+    <p><span data-i18n="userType">User Type</span>: <span id="user-role">Student</span></p>
+    <button class="btn" onclick="changeName()" data-i18n="changeName">Change Name</button>
+  </div>
 
-    <div class="card" id="grades">
-      <h3>Grades</h3>
-      <p>Check your progress and feedback</p>
-      <a class="btn" href="grades.html">View Grades</a>
-    </div>
+  <div class="card" id="timetable">
+    <h3 data-i18n="timetable">Timetable</h3>
+    <p data-i18n="viewWeeklyClasses">View your weekly classes</p>
+    <a class="btn" href="timetable.html" data-i18n="viewTimetable">View Timetable</a>
+  </div>
 
-    <div class="card" id="events">
-      <h3>Events</h3>
-      <p>Upcoming campus events and news</p>
-      <a class="btn" href="events.html">View Events</a>
-    </div>
+  <div class="card" id="grades">
+    <h3 data-i18n="grades">Grades</h3>
+    <p data-i18n="checkProgress">Check your progress and feedback</p>
+    <a class="btn" href="grades.html" data-i18n="viewGrades">View Grades</a>
+  </div>
 
-    <div class="card" id="library">
-      <h3>Library Services</h3>
-      <p>Check library Services</p>
-      <a class="btn" href="library_services.html">Library Services</a>
-    </div>
+  <div class="card" id="events">
+    <h3 data-i18n="events">Events</h3>
+    <p data-i18n="upcomingEvents">Upcoming campus events and news</p>
+    <a class="btn" href="events.html" data-i18n="viewEvents">View Events</a>
+  </div>
 
-    <div class="card" id="canteen">
-      <h3>Canteen Menu</h3>
-      <p>View today’s deals</p>
-      <a class="btn" href="lunch_menu.html">Lunch Menu</a>
-    </div>
-  </section>
+  <div class="card" id="library">
+    <h3 data-i18n="libraryServices">Library Services</h3>
+    <p data-i18n="checkLibraryServices">Check library services</p>
+    <a class="btn" href="library_services.html" data-i18n="libraryServices">Library Services</a>
+  </div>
 
-  <section id="table-section" style="margin-top:20px;">
-    <div id="table-container"></div>
-  </section>
-</main>
+  <div class="card" id="canteen">
+    <h3 data-i18n="canteenMenu">Canteen Menu</h3>
+    <p data-i18n="viewTodaysDeals">View today’s deals</p>
+    <a class="btn" href="lunch_menu.html" data-i18n="lunchMenu">Lunch Menu</a>
+  </div>
+
+</section>
 
 <footer>
   © 2026 Student Companion App
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-
 <script src="script.js" defer></script>
+
 </body>
 </html>
