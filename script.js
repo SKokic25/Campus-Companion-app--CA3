@@ -671,11 +671,29 @@ function applyLanguage() {
     input.type = input.type === "password" ? "text" : "password";
   }
 
-function loadUserInfo() {
-  const loggedIn = localStorage.getItem("loggedIn");
-  const name = localStorage.getItem("userName") || "Guest";
-  const role = localStorage.getItem("userRole") || "Student";
-  const course = localStorage.getItem("userCourse") || "Computer Science";
+async function loadUserInfo() {
+  const loginSection = document.querySelector(".auth-page");
+  const dashboardSection = document.getElementById("dashboard");
+
+  const { data } = await supabase.auth.getSession();
+  const session = data?.session;
+
+  if (!session) {
+    localStorage.removeItem("loggedIn");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("userCourse");
+
+    if (loginSection) loginSection.style.display = "flex";
+    if (dashboardSection) dashboardSection.style.display = "none";
+    return;
+  }
+
+  const user = session.user;
+
+  const name = localStorage.getItem("userName") || user.email || "Guest";
+  const role = localStorage.getItem("userRole") || user.user_metadata?.role || "Student";
+  const course = localStorage.getItem("userCourse") || user.user_metadata?.course || "Computer Science";
 
   const userNameElem = document.getElementById("user-name");
   const userRoleElem = document.getElementById("user-role");
@@ -685,19 +703,9 @@ function loadUserInfo() {
   if (userRoleElem) userRoleElem.textContent = role.charAt(0).toUpperCase() + role.slice(1);
   if (userCourseElem) userCourseElem.textContent = course;
 
-  const loginSection = document.querySelector(".auth-page");
-  const dashboardSection = document.getElementById("dashboard");
-
-
-  if (loggedIn === "true" && dashboardSection) {
-    if (loginSection) loginSection.style.display = "none";
-    dashboardSection.style.display = "grid";
-  } else {
-    if (loginSection) loginSection.style.display = "flex";
-    if (dashboardSection) dashboardSection.style.display = "none";
-  }
+  if (loginSection) loginSection.style.display = "none";
+  if (dashboardSection) dashboardSection.style.display = "grid";
 }
-
 
   async function signupStudent() {
     const email = document.getElementById("signupEmail")?.value.trim();
