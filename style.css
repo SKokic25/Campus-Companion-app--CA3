@@ -1531,3 +1531,22 @@ tbody tr:hover {
   }
 }
 
+.home-link {
+  text-decoration: none;
+  color: white;    
+}
+
+.home-link:visited {
+  color: white;        
+}
+
+.home-link:hover {
+  color: white;   
+}
+   
+
+.home-link h1 {
+  margin: 0;           
+}
+
+
